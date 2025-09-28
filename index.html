@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sakartvelo Skoniai, UAB - Autentiški Gruziniški Vynai ir Maistas</title>
+    <meta name="description" content="Atraskite 8000 metų Gruzijos vyno tradiciją. Autentiški vynai, tradiciniai patiekalai ir vyno degustacijos Vilniuje.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    
+    <style>
+        :root {
+            --wine-red: #722F37;
+            --terracotta: #B85450;
+            --golden-amber: #D4A574;
+            --cream-white: #F8F6F0;
+            --warm-gray: #6B6B6B;
+            --charcoal: #2C2C2C;
+            --sage-green: #8B9A7A;
+            --warm-beige: #E8DCC0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--warm-gray);
+            background-color: var(--cream-white);
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--charcoal);
+        }
+
+        h1 { font-size: 3.5rem; }
+        h2 { font-size: 2.5rem; }
+        h3 { font-size: 1.8rem; }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(248, 246, 240, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(114, 47, 55, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--wine-red);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--wine-red);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--wine-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 3px;
+            background: var(--wine-red);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('resources/hero-vineyard.jpg');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--wine-red);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--terracotta);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(114, 47, 55, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--wine-red);
+        }
+
+        .btn-tertiary {
+            background: var(--golden-amber);
+            color: var(--charcoal);
+        }
+
+        .btn-tertiary:hover {
+            background: var(--terracotta);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            color: var(--wine-red);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.8;
+        }
+
+        /* Wine Showcase */
+        .wine-showcase {
+            background: var(--warm-beige);
+        }
+
+        .wine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .wine-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .wine-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(114, 47, 55, 0.2);
+        }
+
+        .wine-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .wine-info {
+            padding: 1.5rem;
+        }
+
+        .wine-name {
+            font-size: 1.3rem;
+            color: var(--wine-red);
+            margin-bottom: 0.5rem;
+        }
+
+        .wine-region {
+            color: var(--terracotta);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .wine-description {
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .wine-price {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--wine-red);
+            margin-bottom: 1rem;
+        }
+
+        .wine-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* CTA Sections */
+        .cta-section {
+            background: linear-gradient(135deg, var(--wine-red), var(--terracotta));
+            color: white;
+            text-align: center;
+        }
+
+        .cta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .cta-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .cta-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .cta-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-title {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .cta-description {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        /* About Preview */
+        .about-preview {
+            background: white;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .about-text h3 {
+            color: var(--wine-red);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--charcoal);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: var(--golden-amber);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: var(--golden-amber);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--warm-gray);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--wine-red);
+        }
+
+        .form-group input.error,
+        .form-group textarea.error,
+        .form-group select.error {
+            border-color: #e74c3c;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            color: white;
+            font-weight: 500;
+            z-index: 3000;
+        }
+
+        .notification.success {
+            background: #27ae60;
+        }
+
+        .notification.error {
+            background: #e74c3c;
+        }
+
+        .notification.info {
+            background: var(--wine-red);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .wine-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation Classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        /* Character animation for hero title */
+        .hero-title .char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(100px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Sakartvelo Skoniai</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Pradinis</a></li>
+                <li><a href="apie-mus.html">Apie Mus</a></li>
+                <li><a href="parduotuve.html">Parduotuvė</a></li>
+                <li><a href="meniu.html">Meniu</a></li>
+                <li><a href="degustacija.html">Degustacija</a></li>
+                <li><a href="kontaktai.html">Kontaktai</a></li>
+            </ul>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+            <h1 class="hero-title" data-splitting>Sakartvelo Skoniai</h1>
+            <p class="hero-subtitle">Atraskite 8000 metų Gruzijos vyno tradiciją. Autentiški vynai, tradiciniai patiekalai ir nepamirštamos degustacijos Vilniuje.</p>
+            <div class="hero-cta">
+                <a href="parduotuve.html" class="btn btn-primary">Aplankyti Parduotuvę</a>
+                <a href="degustacija.html" class="btn btn-secondary">Užsisakyti Degustaciją</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Wines Section -->
+    <section class="section wine-showcase">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <h2 class="section-title">Išskirtiniai Vynai</h2>
+                <p class="section-subtitle">Pažinkite autentiškus Gruzijos vynus, pagamintus pagal senovines tradicijas</p>
+            </div>
+            
+            <div class="wine-grid">
+                <div class="wine-card animate-on-scroll" data-category="red">
+                    <img src="resources/amber-wine-glass.jpg" alt="Saperavi Premium" class="wine-image">
+                    <div class="wine-info">
+                        <h3 class="wine-name">Saperavi Premium</h3>
+                        <p class="wine-region">Kakheti regionas</p>
+                        <p class="wine-description">Giliausios spalvos ir intensyvaus skonio raudonasis vynas, brandintas ąžuolinėse statinėse pagal tradicinius metodus.</p>
+                        <p class="wine-price">€18.99</p>
+                        <div class="wine-actions">
+                            <button class="btn btn-primary btn-small" data-modal="wine-modal-1">Plačiau</button>
+                            <button class="btn btn-tertiary btn-small" onclick="showNotification('Užklausa išsiųsta!', 'success')">Užsakyti</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wine-card animate-on-scroll" data-category="amber">
+                    <img src="resources/amber-wine-glass.jpg" alt="Rkatsiteli Qvevri" class="wine-image">
+                    <div class="wine-info">
+                        <h3 class="wine-name">Rkatsiteli Qvevri</h3>
+                        <p class="wine-region">Kakheti regionas</p>
+                        <p class="wine-description">Tradiciniu metodu Qvevri inde brandintas gintarinis vynas su išskirtiniu skoniu ir aromatu.</p>
+                        <p class="wine-price">€19.99</p>
+                        <div class="wine-actions">
+                            <button class="btn btn-primary btn-small" data-modal="wine-modal-2">Plačiau</button>
+                            <button class="btn btn-tertiary btn-small" onclick="showNotification('Užklausa išsiųsta!', 'success')">Užsakyti</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wine-card animate-on-scroll" data-category="white">
+                    <img src="resources/amber-wine-glass.jpg" alt="Tsinandali" class="wine-image">
+                    <div class="wine-info">
+                        <h3 class="wine-name">Tsinandali</h3>
+                        <p class="wine-region">Kakheti regionas</p>
+                        <p class="wine-description">Elegantiškas baltasis vynas iš Rkatsiteli ir Mtsvane vynuogių mišinio, puikiai tinkantis prie lengvų patiekalų.</p>
+                        <p class="wine-price">€15.99</p>
+                        <div class="wine-actions">
+                            <button class="btn btn-primary btn-small" data-modal="wine-modal-3">Plačiau</button>
+                            <button class="btn btn-tertiary btn-small" onclick="showNotification('Užklausa išsiųsta!', 'success')">Užsakyti</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <h2 class="section-title" style="color: white;">Patirkite Gruzijos Skonį</h2>
+                <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">Pasinerkite į autentišką Gruzijos kultūrą per vyną ir maistą</p>
+            </div>
+            
+            <div class="cta-grid">
+                <div class="cta-card animate-on-scroll">
+                    <div class="cta-icon">🍷</div>
+                    <h3 class="cta-title">Vyno Degustacijos</h3>
+                    <p class="cta-description">Pažinkite Gruzijos vyno istoriją ir tradicijas per profesionalias degustacijas su užkandžiais.</p>
+                    <a href="degustacija.html" class="btn btn-secondary">Sužinoti Daugiau</a>
+                </div>
+                
+                <div class="cta-card animate-on-scroll">
+                    <div class="cta-icon">🍽️</div>
+                    <h3 class="cta-title">Tradiciniai Patiekalai</h3>
+                    <p class="cta-description">Paragaukite autentiškų gruziniškų patiekalų, pagamintų pagal senovinius receptus.</p>
+                    <a href="meniu.html" class="btn btn-secondary">Peržiūrėti Meniu</a>
+                </div>
+                
+                <div class="cta-card animate-on-scroll">
+                    <div class="cta-icon">🛒</div>
+                    <h3 class="cta-title">Vyno Parduotuvė</h3>
+                    <p class="cta-description">Įsigykite išskirtinių Gruzijos vynų iš kiekvienos šalies vyno regiono.</p>
+                    <a href="parduotuve.html" class="btn btn-secondary">Apsipirkti</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Preview -->
+    <section class="section about-preview">
+        <div class="container">
+            <div class="about-content animate-on-scroll">
+                <div>
+                    <img src="resources/qvevri-cellar.jpg" alt="Qvevri vyno rūsys" class="about-image">
+                </div>
+                <div class="about-text">
+                    <h3>8000 Metų Vyno Tradici</h3>
+                    <p>Gruzija - vyno lopšys, kur vyno gamyba gyvuoja jau 8000 metų. Mūsų šeimos verslas tęsia šią senovinę tradiciją, pristatydamas autentiškus Gruzijos vynus Lietuvos rinkoje.</p>
+                    <p>Mes bendradarbiaujame su mažais šeimos vyninėmis iš visų Gruzijos vyno regionų, kad galėtume pasiūlyti išskirtinius vynus, pagamintus pagal tradicinius Qvevri metodus.</p>
+                    <a href="apie-mus.html" class="btn btn-primary">Skaityti Daugiau</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Sakartvelo Skoniai, UAB</h4>
+                    <p>Savanorių pr. 6<br>
+                    LT-03116, Vilnius<br>
+                    Lietuva</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Kontaktai</h4>
+                    <p>Telefonas: <a href="tel:+37063924442">+370 639 24442</a><br>
+                    El. paštas: <a href="mailto:info@sakartveloskoniai.lt">info@sakartveloskoniai.lt</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Darbo Laikas</h4>
+                    <p>I-V: 10:00 - 20:00<br>
+                    VI: 10:00 - 22:00<br>
+                    VII: 12:00 - 18:00</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Sekite Mus</h4>
+                    <p>Socialiniuose tinkluose:<br>
+                    <a href="#">Facebook</a> | <a href="#">Instagram</a></p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Sakartvelo Skoniai, UAB. Visos teisės saugomos.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Wine Detail Modals -->
+    <div id="wine-modal-1" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Saperavi Premium</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <img src="resources/amber-wine-glass.jpg" alt="Saperavi Premium" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
+            <p><strong>Regionas:</strong> Kakheti, Gruzija</p>
+            <p><strong>Tipas:</strong> Raudonas sausas</p>
+            <p><strong>Alkoholis:</strong> 14%</p>
+            <p><strong>Apibūdinimas:</strong> Giliausios spalvos ir intensyvaus skonio raudonasis vynas, pagamintas iš rankiniu būdu skintų Saperavi vynuogių. Brandintas prancūziško ąžuolo statinėse 18 mėnesių.</p>
+            <p><strong>Skonio natos:</strong> Juodieji serbentai, slyvos, prieskoniai, šokoladas</p>
+            <p><strong>Pateikimo temperatūra:</strong> 16-18°C</p>
+            <p><strong>Puikiai tinka prie:</strong> Mėsos patiekalų, brandintų sūrių, kepsnių</p>
+            <div style="margin-top: 1.5rem;">
+                <button class="btn btn-primary" onclick="showNotification('Užklausa išsiųsta!', 'success'); closeModal();">Užsakyti €18.99</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="wine-modal-2" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Rkatsiteli Qvevri</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <img src="resources/amber-wine-glass.jpg" alt="Rkatsiteli Qvevri" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
+            <p><strong>Regionas:</strong> Kakheti, Gruzija</p>
+            <p><strong>Tipas:</strong> Gintarinis sausas (Qvevri metodas)</p>
+            <p><strong>Alkoholis:</strong> 13%</p>
+            <p><strong>Apibūdinimas:</strong> Unikalus gintarinis vynas, pagamintas pagal 8000 metų senumo tradiciją Qvevri inde. Vynuogės fermentuojamos su žievelėmis 6 mėnesius.</p>
+            <p><strong>Skonio natos:</strong> Medus, džiovinti vaisiai, riešutai, prieskoniai</p>
+            <p><strong>Pateikimo temperatūra:</strong> 12-14°C</p>
+            <p><strong>Puikiai tinka prie:</strong> Aštrių patiekalų, brandintų sūrių, tradicinės gruziniškos virtuvės</p>
+            <div style="margin-top: 1.5rem;">
+                <button class="btn btn-primary" onclick="showNotification('Užklausa išsiųsta!', 'success'); closeModal();">Užsakyti €19.99</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="wine-modal-3" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Tsinandali</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <img src="resources/amber-wine-glass.jpg" alt="Tsinandali" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
+            <p><strong>Regionas:</strong> Kakheti, Gruzija</p>
+            <p><strong>Tipas:</strong> Baltas sausas</p>
+            <p><strong>Alkoholis:</strong> 12.5%</p>
+            <p><strong>Apibūdinimas:</strong> Elegantiškas baltasis vynas iš Rkatsiteli (85%) ir Mtsvane (15%) vynuogių mišinio. Brandintas nerūdijančio plieno talpose.</p>
+            <p><strong>Skonio natos:</strong> Žalios obuolys, kriaušė, citrusiniai vaisiai, žiedai</p>
+            <p><strong>Pateikimo temperatūra:</strong> 8-10°C</p>
+            <p><strong>Puikiai tinka prie:</strong> Žuvies patiekalų, jūros gėrybių, lengvų užkandžių</p>
+            <div style="margin-top: 1.5rem;">
+                <button class="btn btn-primary" onclick="showNotification('Užklausa išsiųsta!', 'success'); closeModal();">Užsakyti €15.99</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        // Character splitting for hero title animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const heroTitle = document.querySelector('.hero-title');
+            if (heroTitle) {
+                const text = heroTitle.textContent;
+                heroTitle.innerHTML = text.split('').map(char => 
+                    `<span class="char">${char === ' ' ? '&nbsp;' : char}</span>`
+                ).join('');
+            }
+        });
+
+        // Global notification function
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            if (typeof anime !== 'undefined') {
+                anime({
+                    targets: notification,
+                    translateX: [300, 0],
+                    opacity: [0, 1],
+                    easing: 'easeOutExpo',
+                    duration: 400
+                });
+                
+                setTimeout(() => {
+                    anime({
+                        targets: notification,
+                        translateX: [0, 300],
+                        opacity: [1, 0],
+                        easing: 'easeInExpo',
+                        duration: 400,
+                        complete: () => notification.remove()
+                    });
+                }, 4000);
+            } else {
+                setTimeout(() => notification.remove(), 4000);
+            }
+        }
+
+        // Global modal close function
+        function closeModal() {
+            const activeModal = document.querySelector('.modal.active');
+            if (activeModal) {
+                activeModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+    </script>
+</body>
+</html>

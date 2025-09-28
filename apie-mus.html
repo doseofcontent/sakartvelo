@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apie Mus - Sakartvelo Skoniai, UAB</title>
+    <meta name="description" content="Sužinokite apie 8000 metų Gruzijos vyno tradiciją ir mūsų misiją pristatyti autentiškus Gruzijos skonius Lietuvoje.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    
+    <style>
+        :root {
+            --wine-red: #722F37;
+            --terracotta: #B85450;
+            --golden-amber: #D4A574;
+            --cream-white: #F8F6F0;
+            --warm-gray: #6B6B6B;
+            --charcoal: #2C2C2C;
+            --sage-green: #8B9A7A;
+            --warm-beige: #E8DCC0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--warm-gray);
+            background-color: var(--cream-white);
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--charcoal);
+        }
+
+        h1 { font-size: 3.5rem; }
+        h2 { font-size: 2.5rem; }
+        h3 { font-size: 1.8rem; }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(248, 246, 240, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(114, 47, 55, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--wine-red);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--wine-red);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--wine-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 3px;
+            background: var(--wine-red);
+            transition: all 0.3s ease;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--wine-red), var(--terracotta));
+            color: white;
+            padding: 8rem 0 4rem;
+            text-align: center;
+        }
+
+        .page-title {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            color: var(--wine-red);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: var(--warm-beige);
+            padding: 6rem 0;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            color: var(--wine-red);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        /* History Timeline */
+        .history-section {
+            background: white;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--wine-red);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            background: var(--warm-beige);
+            padding: 2rem;
+            border-radius: 20px;
+            width: 45%;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: 10%;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 10%;
+        }
+
+        .timeline-year {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--wine-red);
+            color: white;
+            padding: 1rem;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            z-index: 2;
+        }
+
+        .timeline-title {
+            color: var(--wine-red);
+            margin-bottom: 1rem;
+        }
+
+        /* Mission Section */
+        .mission-section {
+            background: var(--warm-beige);
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .mission-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .mission-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .mission-title {
+            color: var(--wine-red);
+            margin-bottom: 1rem;
+        }
+
+        .mission-description {
+            line-height: 1.6;
+        }
+
+        /* Qvevri Section */
+        .qvevri-section {
+            background: white;
+        }
+
+        .qvevri-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .qvevri-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .qvevri-text h3 {
+            color: var(--wine-red);
+            margin-bottom: 1.5rem;
+        }
+
+        .qvevri-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .qvevri-steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+
+        .qvevri-steps li {
+            counter-increment: step-counter;
+            margin-bottom: 1rem;
+            padding-left: 3rem;
+            position: relative;
+        }
+
+        .qvevri-steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--wine-red);
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Regions Map */
+        .regions-section {
+            background: var(--warm-beige);
+        }
+
+        .regions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .region-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .region-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .region-name {
+            color: var(--wine-red);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .region-characteristics {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .region-characteristics li {
+            padding: 0.25rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .region-characteristics li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--wine-red);
+            font-weight: bold;
+        }
+
+        .region-wines {
+            font-size: 0.9rem;
+            color: var(--warm-gray);
+        }
+
+        /* Team Section */
+        .team-section {
+            background: white;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .team-member {
+            background: var(--warm-beige);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .member-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--wine-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0 auto 1.5rem;
+        }
+
+        .member-name {
+            color: var(--wine-red);
+            margin-bottom: 0.5rem;
+        }
+
+        .member-role {
+            color: var(--terracotta);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .member-description {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Values Section */
+        .values-section {
+            background: var(--warm-beige);
+        }
+
+        .values-content {
+            text-align: center;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .value-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .value-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .value-title {
+            color: var(--wine-red);
+            margin-bottom: 1rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--wine-red), var(--terracotta));
+            color: white;
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .cta-title {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .cta-description {
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--wine-red);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--terracotta);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(114, 47, 55, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--wine-red);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--charcoal);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: var(--golden-amber);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: var(--golden-amber);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .timeline::before {
+                left: 2rem;
+            }
+
+            .timeline-item {
+                flex-direction: column !important;
+                align-items: flex-start;
+                padding-left: 4rem;
+            }
+
+            .timeline-content {
+                width: 100% !important;
+                margin: 0 !important;
+            }
+
+            .timeline-year {
+                left: 2rem !important;
+                transform: translateX(-50%) !important;
+            }
+
+            .qvevri-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .timeline-item {
+                padding-left: 3rem;
+            }
+
+            .timeline-year {
+                width: 60px;
+                height: 60px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Animation Classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Sakartvelo Skoniai</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Pradinis</a></li>
+                <li><a href="apie-mus.html" class="active">Apie Mus</a></li>
+                <li><a href="parduotuve.html">Parduotuvė</a></li>
+                <li><a href="meniu.html">Meniu</a></li>
+                <li><a href="degustacija.html">Degustacija</a></li>
+                <li><a href="kontaktai.html">Kontaktai</a></li>
+            </ul>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Apie Mus</h1>
+            <p class="page-subtitle">Atraskite 8000 metų Gruzijos vyno tradiciją ir mūsų misiją dalintis autentiškais skoniais</p>
+        </div>
+    </section>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content animate-on-scroll">
+                <div class="hero-text">
+                    <h1>Sakartvelo Skoniai</h1>
+                    <p>Mūsų istorija prasidėjo nuo meilės Gruzijai - šaliai, kur vynas yra ne tik gėrimas, o gyvenimo būdas ir kultūros pagrindas. Mes esame šeimos verslas, kurio misija - pristatyti Lietuvai autentiškus Gruzijos vynus ir kulinarinį paveldą.</p>
+                    
+                    <p>Dirbame tiesiogiai su mažomis šeimos vyninėmis iš visų Gruzijos regionų, užtikrindami, kad kiekvienas vynas pasiektų jus su visa savo istorija ir tradicijomis. Mūsų vynai gaminami pagal senovinius Qvevri metodus, išlaikant autentiškumą ir išskirtinumą.</p>
+                    
+                    <p>Kviečiame jus pažinti Gruziją per jos vynus, maistą ir svetingumą - tai kelionė, kuri paliks neišdildomą įspūdį ir sukurs naujus skonio atradimus.</p>
+                </div>
+                <div>
+                    <img src="resources/qvevri-cellar.jpg" alt="Qvevri vyno rūsys" class="hero-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Timeline -->
+    <section class="section history-section">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <h2 class="section-title">8000 Metų Vyno Istorija</h2>
+                <p class="section-subtitle">Gruzija - vyno lopšys, kur tradicijos gyvuoja per amžius</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">6000 m. pr. m. e.</h3>
+                        <p>Archeologiniai radiniai Gruzijoje rodo, kad čia vynas buvo gaminamas jau prieš 8000 metų. Tai seniausia žinoma vyno gamybos vieta pasaulyje.</p>
+                    </div>
+                    <div class="timeline-year">8000m</div>
+                </div>
+                
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Qvevri Išradimas</h3>
+                        <p>Gruzinai sukūrė unikalų molinį indą - Qvevri, kuris palaidojamas žemėje ir naudojamas vyno gamybai. Šis metodas išsaugotas iki šių dienų.</p>
+                    </div>
+                    <div class="timeline-year">Qvevri</div>
+                </div>
+                
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Viduramžių Tradijos</h3>
+                        <p>Gruzijos vienuolynai puoselėjo vyno gamybos tradicijas, kūrė receptus ir perdavė žinias iš kartos į kartą.</p>
+                    </div>
+                    <div class="timeline-year">XIIa</div>
+                </div>
+                
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">UNESCO Pripažinimas</h3>
+                        <p>2013 m. Qvevri vyno gamybos metodas įtrauktas į UNESCO nematerialaus kultūros paveldo sąrašą.</p>
+                    </div>
+                    <div class="timeline-year">2013</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="section mission-section">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <h2 class="section-title">Mūsų Misija</h2>
+                <p class="section-subtitle">Trys pagrindiniai principai, kurie vadovauja mūsų veiklai</p>
+            </div>
+            
+            <div class="mission-grid">
+                <div class="mission-card animate-on-scroll">
+                    <div class="mission-icon">🍇</div>
+                    <h3 class="mission-title">Autentiškumas</h3>
+                    <p class="mission-description">Dirbame tik su autentiškais Gruzijos vyninės, kurios išlaiko tradicinius gamybos metodus ir naudoja vietines vynuogių veisles.</p>
+                </div>
+                
+                <div class="mission-card animate-on-scroll">
+                    <div class="mission-icon">🤝</div>
+                    <h3 class="mission-title">Partnerystė</h3>
+                    <p class="mission-description">Bendradarbiaujame su mažomis šeimos vyninėmis, palaikydami jų veiklą ir padėdami išsaugoti kultūrinį paveldą.</p>
+                </div>
+                
+                <div class="mission-card animate-on-scroll">
+                    <div class="mission-icon">📚</div>
+                    <h3 class="mission-title">Edukacija</h3>
+                    <p class="mission-description">Šviečiame mūsų klientus apie Gruzijos vyno kultūrą, istoriją ir tradicijas, kad jie galėtų pilnai įvertinti kiekvieno vyno unikalumą.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Qvevri Section -->
+    <section class="section qvevri-section">
+        <div class="container">
+            <div class="qvevri-content animate-on-scroll">
+                <div>
+                    <img src="resources/qvevri-cellar.jpg" alt="Qvevri gamyba" class="qvevri-image">
+                </div>
+                <div class="qvevri-text">
+                    <h3>Qvevri - Gruzijos Vyno Širdis</h3>
+                    <p>Qvevri yra didžiulis, kiaušinio formos molinis indas, kuris palaidojamas žemėje ir naudojamas vyno gamybai. Šis unikalus metodas suteikia vynams išskirtines savybes ir skonį.</p>
+                    
+                    <p>Qvevri gamybos procesas yra labai sudėtingas ir reikalauja specialių įgūdžių. Kiekvienas Qvevri yra rankų darbo ir unikalus. Indo vidus padengiamas bičių vašku, o išorė - kalkių skiediniu.</p>
+                    
+                    <ol class="qvevri-steps">
+                        <li>Gervuogių ir vynuogių sulčių fermentacija Qvevri inde</li>
+                        <li>Natūrali temperatūros kontrolė dėl žemės šilumos</li>
+                        <li>Ilga maceracija su žievelėmis (3-6 mėnesiai)</li>
+                        <li>Natūrali filtracija per žievelių sluoksnį</li>
+                        <li>Vyno brandinimas Qvevri inde</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wine Regions -->
+    <section class="section regions-section">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <h2 class="section-title">Gruzijos Vyno Regionai</h2>
+                <p class="section-subtitle">Kiekvienas regionas turi savo unikalų charakterį ir vyno stilių</p>
+            </div>
+            
+            <div class="regions-grid">
+                <div class="region-card animate-on-scroll">
+                    <h3 class="region-name">Kakheti</h3>
+                    <ul class="region-characteristics">
+                        <li>Didžiausias vyno regionas Gruzijoje</li>
+                        <li>Garsėja Saperavi ir Rkatsiteli vynuogėmis</li>
+                        <li>Kontinentinis klimatas</li>
+                        <li>Tradicinė Qvevri gamyba</li>
+                    </ul>
+                    <p class="region-wines">Garsiausi vynai: Saperavi, Kindzmarauli, Tsinandali</p>
+                </div>
+                
+                <div class="region-card animate-on-scroll">
+                    <h3 class="region-name">Imereti</h3>
+                    <ul class="region-characteristics">
+                        <li>Vėsus ir drėgnas klimatas</li>
+                        <li>Lengvesni ir aromatingesni vynai</li>
+                        <li>Kitokio tipo Qvevri (Churi)</li>
+                        <li>Baltųjų vynų specializacija</li>
+                    </ul>
+                    <p class="region-wines">Garsiausi vynai: Tsitska, Tsolikouri, Krakhuna</p>
+                </div>
+                
+                <div class="region-card animate-on-scroll">
+                    <h3 class="region-name">Racha-Lechkhumi</h3>
+                    <ul class="region-characteristics">
+                        <li>Kalnuotas reljefas</li>
+                        <li>Unikalios vynuogių veislės</li>
+                        <li>Natūraliai saldūs vynai</li>
+                        <li>Ribota produkcija</li>
+                    </ul>
+                    <p class="region-wines">Garsiausi vynai: Khvanchkara, Usakhelouri</p>
+                </div>
+                
+                <div class="region-card animate-on-scroll">
+                    <h3 class="region-name">Kartli</h3>
+                    <ul class="region-characteristics">
+                        <li>Vidutinio klimato regionas</li>
+                        <li>Geriausios sąlygos putojantiems vynams</li>
+                        <li>Įvairių vynuogių veislių auginimas</li>
+                        <li>Modernios ir tradicinės technologijos</li>
+                    </ul>
+                    <p class="region-wines">Garsiausi vynai: Chinuri, Goruli Mtsvane</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section team-section">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <h2 class="section-title">Mūsų Komanda</h2>
+                <p class="section-subtitle">Profesionalai, kurie myli Gruziją ir jos vyno kultūrą</p>
+            </div>
+            
+            <div class="team-grid">
+                <div class="team-member animate-on-scroll">
+                    <div class="member-avatar">G</div>
+                    <h4 class="member-name">Giorgi Kapanadze</h4>
+                    <p class="member-role">Įkūrėjas ir Vyno Ekspertas</p>
+                    <p class="member-description">Gruzijos kilmės vyno ekspertas, turintis 15 metų patirtį vyno industrijoje. Specializuojasi Qvevri vynų gamyboje ir Gruzijos vyno regionų pažinime.</p>
+                </div>
+                
+                <div class="team-member animate-on-scroll">
+                    <div class="member-avatar">N</div>
+                    <h4 class="member-name">Nino Beridze</h4>
+                    <p class="member-role">Someljė ir Degustacijų Vadovė</p>
+                    <p class="member-description">Sertifikuota someljė, baigusi studijas Tbilisio vyno akademijoje. Veda degustacijas ir šviečia svečius apie Gruzijos vyno kultūrą.</p>
+                </div>
+                
+                <div class="team-member animate-on-scroll">
+                    <div class="member-avatar">T</div>
+                    <h4 class="member-name">Tomas Vardas</h4>
+                    <p class="member-role">Virtuvės Šefas</p>
+                    <p class="member-description">Patyręs šefas, specializuojantis tradicinėje gruziniškoje virtuvėje. Kuria autentiškus patiekalus, kurie puikiai dera prie mūsų vynų.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="section values-section">
+        <div class="container">
+            <div class="values-content animate-on-scroll">
+                <h2 class="section-title">Mūsų Verdikės</h2>
+                <p class="section-subtitle">Pagrindiniai principai, kurie vadovauja mūsų veiklai</p>
+                
+                <div class="values-grid">
+                    <div class="value-item">
+                        <div class="value-icon">🌱</div>
+                        <h4 class="value-title">Tvarumas</h4>
+                        <p>Palaikome ekologišką žemės ūkį ir tvarias gamybos praktikas.</p>
+                    </div>
+                    
+                    <div class="value-item">
+                        <div class="value-icon">🎭</div>
+                        <h4 class="value-title">Kultūra</h4>
+                        <p>Gerbiame ir puoselėjame Gruzijos kultūrinį paveldą.</p>
+                    </div>
+                    
+                    <div class="value-item">
+                        <div class="value-icon">⭐</div>
+                        <h4 class="value-title">Kokybė</h4>
+                        <p>Atrinkome tik aukščiausios kokybės vynus ir produktus.</p>
+                    </div>
+                    
+                    <div class="value-item">
+                        <div class="value-icon">💝</div>
+                        <h4 class="value-title">Svetingumas</h4>
+                        <p>Sekame gruzinišku svetingumo pavyzdžiu - kiekvienas svečias yra šeima.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="animate-on-scroll">
+                <h2 class="cta-title">Pradėkite Gruzijos Skonių Kelionę</h2>
+                <p class="cta-description">Atraskite autentiškus Gruzijos vynus ir tradicinę virtuvę pas mus</p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="parduotuve.html" class="btn btn-primary">Aplankyti Parduotuvę</a>
+                    <a href="degustacija.html" class="btn btn-secondary">Užsisakyti Degustaciją</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Sakartvelo Skoniai, UAB</h4>
+                    <p>Savanorių pr. 6<br>
+                    LT-03116, Vilnius<br>
+                    Lietuva</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Kontaktai</h4>
+                    <p>Telefonas: <a href="tel:+37063924442">+370 639 24442</a><br>
+                    El. paštas: <a href="mailto:info@sakartveloskoniai.lt">info@sakartveloskoniai.lt</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Darbo Laikas</h4>
+                    <p>I-V: 10:00 - 20:00<br>
+                    VI: 10:00 - 22:00<br>
+                    VII: 12:00 - 18:00</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Sekite Mus</h4>
+                    <p>Socialiniuose tinkluose:<br>
+                    <a href="#">Facebook</a> | <a href="#">Instagram</a></p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Sakartvelo Skoniai, UAB. Visos teisės saugomos.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

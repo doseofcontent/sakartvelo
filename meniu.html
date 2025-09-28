@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meniu - Sakartvelo Skoniai, UAB</title>
+    <meta name="description" content="Paragaukite autentiškų gruziniškų patiekalų. Khachapuri, Khinkali, Chashushuli ir kiti tradiciniai skanėstai, pagaminti pagal senovinius receptus.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    
+    <style>
+        :root {
+            --wine-red: #722F37;
+            --terracotta: #B85450;
+            --golden-amber: #D4A574;
+            --cream-white: #F8F6F0;
+            --warm-gray: #6B6B6B;
+            --charcoal: #2C2C2C;
+            --sage-green: #8B9A7A;
+            --warm-beige: #E8DCC0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--warm-gray);
+            background-color: var(--cream-white);
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--charcoal);
+        }
+
+        h1 { font-size: 3.5rem; }
+        h2 { font-size: 2.5rem; }
+        h3 { font-size: 1.8rem; }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(248, 246, 240, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(114, 47, 55, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--wine-red);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--wine-red);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--wine-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 3px;
+            background: var(--wine-red);
+            transition: all 0.3s ease;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--wine-red), var(--terracotta));
+            color: white;
+            padding: 8rem 0 4rem;
+            text-align: center;
+        }
+
+        .page-title {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            color: var(--wine-red);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.8;
+        }
+
+        /* Menu Navigation */
+        .menu-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .menu-tab {
+            padding: 1rem 2rem;
+            background: white;
+            border: 2px solid var(--warm-beige);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .menu-tab:hover, .menu-tab.active {
+            background: var(--wine-red);
+            color: white;
+            border-color: var(--wine-red);
+        }
+
+        /* Menu Content */
+        .menu-content {
+            min-height: 400px;
+        }
+
+        .menu-section {
+            display: none;
+        }
+
+        .menu-section.active {
+            display: block;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .dish-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dish-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(114, 47, 55, 0.2);
+        }
+
+        .dish-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .dish-info {
+            padding: 1.5rem;
+        }
+
+        .dish-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .dish-name {
+            color: var(--wine-red);
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .dish-price {
+            color: var(--terracotta);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .dish-description {
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            color: var(--warm-gray);
+        }
+
+        .dish-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .dish-weight {
+            color: var(--warm-gray);
+        }
+
+        .dish-allergens {
+            color: var(--terracotta);
+        }
+
+        .wine-pairing {
+            background: var(--warm-beige);
+            padding: 0.75rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .wine-pairing strong {
+            color: var(--wine-red);
+        }
+
+        .dish-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* Dietary Filters */
+        .dietary-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-chip {
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 2px solid var(--warm-beige);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-chip:hover, .filter-chip.active {
+            background: var(--sage-green);
+            color: white;
+            border-color: var(--sage-green);
+        }
+
+        /* Georgian Dining Culture */
+        .culture-section {
+            background: var(--warm-beige);
+        }
+
+        .culture-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .culture-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .culture-text h3 {
+            color: var(--wine-red);
+            margin-bottom: 1.5rem;
+        }
+
+        .culture-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .culture-highlights {
+            list-style: none;
+        }
+
+        .culture-highlights li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .culture-highlights li::before {
+            content: '🍽️';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+        }
+
+        /* Reservation Section */
+        .reservation-section {
+            background: white;
+            text-align: center;
+        }
+
+        .reservation-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .reservation-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-item {
+            background: var(--warm-beige);
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            color: var(--wine-red);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--wine-red);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--terracotta);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(114, 47, 55, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--wine-red);
+            border: 2px solid var(--wine-red);
+        }
+
+        .btn-secondary:hover {
+            background: var(--wine-red);
+            color: white;
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--charcoal);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: var(--golden-amber);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: var(--golden-amber);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--warm-gray);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .menu-nav {
+                gap: 0.5rem;
+            }
+
+            .menu-tab {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .culture-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .dietary-filters {
+                gap: 0.5rem;
+            }
+
+            .filter-chip {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .reservation-features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation Classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            color: white;
+            font-weight: 500;
+            z-index: 3000;
+        }
+
+        .notification.success {
+            background: #27ae60;
+        }
+
+        .notification.error {
+            background: #e74c3c;
+        }
+
+        .notification.info {
+            background: var(--wine-red);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Sakartvelo Skoniai</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Pradinis</a></li>
+                <li><a href="apie-mus.html">Apie Mus</a></li>
+                <li><a href="parduotuve.html">Parduotuvė</a></li>
+                <li><a href="meniu.html" class="active">Meniu</a></li>
+                <li><a href="degustacija.html">Degustacija</a></li>
+                <li><a href="kontaktai.html">Kontaktai</a></li>
+            </ul>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Meniu</h1>
+            <p class="page-subtitle">Autentiški gruziniški patiekalai, pagaminti pagal senovinius receptus</p>
+        </div>
+    </section>
+
+    <!-- Menu Navigation -->
+    <section class="section">
+        <div class="container">
+            <nav class="menu-nav">
+                <div class="menu-tab active" data-section="appetizers">Užkandžiai</div>
+                <div class="menu-tab" data-section="main">Karšti Patiekalai</div>
+                <div class="menu-tab" data-section="desserts">Desertai</div>
+                <div class="menu-tab" data-section="beverages">Gėrimai</div>
+            </nav>
+
+            <!-- Dietary Filters -->
+            <div class="dietary-filters">
+                <div class="filter-chip active" data-filter="all">
+                    <span>Visi</span>
+                </div>
+                <div class="filter-chip" data-filter="vegetarian">
+                    <span>🌱</span>
+                    <span>Vegetariški</span>
+                </div>
+                <div class="filter-chip" data-filter="gluten-free">
+                    <span>🌾</span>
+                    <span>Be glitimo</span>
+                </div>
+                <div class="filter-chip" data-filter="spicy">
+                    <span>🌶️</span>
+                    <span>Aštrūs</span>
+                </div>
+            </div>
+
+            <!-- Menu Content -->
+            <div class="menu-content">
+                <!-- Appetizers Section -->
+                <div class="menu-section active" id="appetizers">
+                    <div class="menu-grid">
+                        <div class="dish-card animate-on-scroll" data-dietary="vegetarian" data-dish-id="1">
+                            <img src="resources/georgian-feast.jpg" alt="Khachapuri Adžarų" class="dish-image">
+                            <div class="dish-info">
+                                <div class="dish-header">
+                                    <div>
+                                        <h3 class="dish-name">Khachapuri (Adžarų)</h3>
+                                        <p>Tradicinė gruziniška sūrio duona</p>
+                                    </div>
+                                    <div class="dish-price">€8.50</div>
+                                </div>
+                                <p class="dish-description">Šviežia duona su sūrio įdaru, kiaušiniu ir sviestu. Gaminama pagal tradicinį Adžarijos regiono receptą.</p>
+                                <div class="dish-details">
+                                    <span class="dish-weight">~450g</span>
+                                    <span class="dish-allergens">Sudėtyje: glitimas, pienas, kiaušiniai</span>
+                                </div>
+                                <div class="wine-pairing">
+                                    <strong>Rekomenduojamas vynas:</strong> Tsinandali
+                                </div>
+                                <div class="dish-actions">
+                                    <button class="btn btn-secondary btn-small" onclick="showDishDetails(1)">Plačiau</button>
+                                    <button class="btn btn-primary btn-small" onclick="showNotification('Patiekalas pridėtas prie užsakymo!', 'success')">Užsakyti</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dish-card animate-on-scroll" data-dietary="" data-dish-id="2">
+                            <img src="resources/georgian-feast.jpg" alt="Khinkali" class="dish-image">
+                            <div class="dish-info">
+                                <div class="dish-header">
+                                    <div>
+                                        <h3 class="dish-name">Khinkali (10vnt.)</h3>
+                                        <p>Tradiciniai gruziniški virtinukai</p>
+                                    </div>
+                                    <div class="dish-price">€12.00</div>
+                                </div>
+                                <p class="dish-description">Rankų darbo virtinukai su jautienos ir kiaulienos įdaru, sultiniu ir prieskoniais. Valgomi rankomis, pakėlus už koto.</p>
+                                <div class="dish-details">
+                                    <span class="dish-weight">~500g</span>
+                                    <span class="dish-allergens">Sudėtyje: glitimas, pienas, kiaušiniai</span>
+                                </div>
+                                <div class="wine-pairing">
+                                    <strong>Rekomenduojamas vynas:</strong> Saperavi
+                                </div>
+                                <div class="dish-actions">
+                                    <button class="btn btn-secondary btn-small" onclick="showDishDetails(2)">Plačiau</button>
+                                    <button class="btn btn-primary btn-small" onclick="showNotification('Patiekalas pridėtas prie užsakymo!', 'success')">Užsakyti</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dish-card animate-on-scroll" data-dietary="vegetarian" data-dish-id="3">
+                            <img src="resources/georgian-feast.jpg" alt="Pkhali" class="dish-image">
+                            <div class="dish-info">
+                                <div class="dish-header">
+                                    <div>
+                                        <h3 class="dish-name">Pkhali (3 rūšys)</h3>
+                                        <p>Daržovių užkandžiai su riešutų padažu</p>
+                                    </div>
+                                    <div class="dish-price">€9.50</div>
+                                </div>
+                                <p class="dish-description">Tradiciniai daržovių rutuliukai su riešutų ir žolelių padažu: špinatų, burokėlių ir morkų variantai.</p>
+                                <div class="dish-details">
+                                    <span class="dish-weight">~300g</span>
+                                    <span class="dish-allergens">Sudėtyje: riešutai, česnakai</span>
+                                </div>
+                                <div class="wine-pairing">
+                                    <strong>Rekomenduojamas vynas:</strong> Mtsvane
+                                </div>
+                                <div class="dish-actions">
+                                    <button class="btn btn-secondary btn-small" onclick="showDishDetails(3)">Plačiau</button>
+                                    <button class="btn btn-primary btn-small" onclick="showNotification('Patiekalas pridėtas prie užsakymo!', 'success')">Užsakyti</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dish-card animate-on-scroll" data-dietary="gluten-free" data-dish-id="4">
+                            <img src="resources/georgian-feast.jpg" alt="Badridžani Nigvzit" class="dish-image">
+                            <div class="dish-info">
+                                <div class="dish-header">
+                                    <div>
+                                        <h3 class="dish-name">Badridžani Nigvzit</h3>
+                                        <p>Baklažanai su riešutų padažu</p>
+                                    </div>
+                                    <div class="dish-price">€7.50</div>
+                                </div>
+                                <p class="dish-description">Skrudinti baklažanų griežinėliai su tradiciniu gruzinišku riešutų, česnakų ir žolelių padažu.</p>
+                                <div class="dish-details">
+                                    <span class="dish-weight">~250g</span>
+                                    <span class="dish-allergens">Sudėtyje: riešutai, česnakai</span>
+                                </div>
+                                <div class="wine-pairing">
+                                    <strong>Rekomenduojamas vynas:</strong> Rkatsiteli Qvevri
+                                </div>
+                                <div class="dish-actions">
+                                    <button class="btn btn-secondary btn-small" onclick="showDishDetails(4)">Plačiau</button>
+                                    <button class="btn btn-primary btn-small" onclick="showNotification('Patiekalas pridėtas prie užsakymo!', 'success')">Užsakyti</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Dishes Section -->
+                <div class="menu-section" id="main">
+                    <div class="menu-grid">
+                        <div class="dish-card animate-on-scroll" data-dietary="spicy" data-dish-id="5">
+                            <img src="resources/georgian-feast.jpg" alt="Chashushuli" class="dish-image">
+                            <div class="dish-info">
+                                <div class="dish-header">
+                                    <div>
+                                        <h3 class="dish-name">Chashushuli</h3>
+                                        <p>Troškinta jautiena su pomidorais</p>
+                                    </div>
+                                    <div class="dish-price">€16.00</div>
+                                </div>
+                                <p class="dish-description">Minkšta jautiena, troškinta su šviežiais pomidorais, svogūnais ir tradiciniais gruziniškais prieskoniais. Patiekiama su šviežia duona.</p>
+                                <div class="dish-details">
+                                    <span class="dish-weight">~400g</span>
+                                    <span class="dish-allergens">Sudėtyje: česnakai, prieskoniai</span>
+                                </div>
+                                <div class="wine-pairing">
+                                    <strong>Rekomenduojamas vynas:</strong> Saperavi Premium
+                                </div>
+                                <div class="dish-actions">
+                                    <button class="btn btn-secondary btn-small" onclick="showDishDetails(5)">Plačiau</button>
+                                    <button class="btn btn-primary btn-small" onclick="showNotification('Patiekalas pridėtas prie užsakymo!', 'success')">Užsakyti</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dish-card animate-on-scroll" data-dietary="" data-dish-id="6">
+                            <img src="resources/georgian-feast.jpg" alt="Chakhokhbili" class="dish-image">
+                            <div class="dish-info">
+                                <div class="dish-header">
+                                    <div>
+                                        <h3 class="dish-name">Chakhokhbili</h3>
+                                        <p>Vištiena troškinta pomidorų padaže</p>
+                                    </div>
+                                    <div class="dish-price">€14.50</div>
+                                </div>
+                                <p class="dish-description">Tender chicken stewed in tomato and herb sauce with traditional Georgian spices. Served with fresh herbs and bread.</p>
+                                <div class="dish-details">
+                                    <span class="dish-weight">~350g</span>
+                                    <span class="dish-allergens">Contains: herbs, spices</span>
+                                </div>
+                                <div class="wine-pairing">
+                                    <strong>Recommended wine:</strong> Kindzmarauli
+                                </div>
+                                <div class="dish-actions">
+                                    <button class="btn btn-secondary btn-small" onclick="showDishDetails(6)">More Info</button>
+                                    <button class="btn btn-primary btn-small" onclick="showNotification('Dish added to order!', 'success')">Order</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dish-card animate-on-scroll" data-dietary="" data-dish-id="7">
+                            <img src="resources/georgian-feast.jpg" alt="Mtsvadi" class="dish-image">
+                            <div class="dish-info">
+                                <div class="dish-header">
+                                    <div>
+                                        <h3 class="dish-name">Mtsvadi</h3>
+                                        <p>Grilled meat skewers</p>
+                                    </div>
+                                    <div class="dish-price">€15.00</div>
+                                </div>
+                                <p class="dish-description">Traditional Georgian meat skewers marinated in wine and spices, grilled over grapevine wood. Served with tkemali sauce.</p>
+                                <div class="dish-details">
+                                    <span class="dish-weight">~300g</span>
+                                    <span class="dish-allergens">Contains: wine, spices</span>
+                                </div>
+                                <div class="wine-pairing">
+                                    <strong>Recommended wine:</strong> Mukuzani Reserve
+                                </div>
+                                <div class="dish-actions">
+                                    <button class="btn btn-secondary btn-small" onclick="showDishDetails(7)">More Info</button>
+                                    <button class="btn btn-primary btn-small" onclick="showNotification('Dish added to order!', 'success')">Order</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Desserts Section -->
+                <div class="menu-section" id="desserts">
+                    <div class="menu-grid">
+                        <div class="dish-card animate-on-scroll" data-dietary="vegetarian" data-dish-id="8">
+                            <img src="resources/georgian-feast.jpg" alt="Churchkhela" class="dish-image">
+                            <div class="dish-info">
+                                <div class="dish-header">
+                                    <div>
+                                        <h3 class="dish-name">Churchkhela (3 vnt.)</h3>
+                                        <p>Traditional Georgian sweets</p>
+                                    </div>
+                                    <div class="dish-price">€6.50</div>
+                                </div>
+                                <p class="dish-description">Traditional Georgian sweets made from nuts (walnuts or hazelnuts) dipped in concentrated grape juice and dried.</p>
+                                <div class="dish-details">
+                                    <span class="dish-weight">~150g</span>
+                                    <span class="dish-allergens">Contains: nuts</span>
+                                </div>
+                                <div class="wine-pairing">
+                                    <strong>Recommended wine:</strong> Kindzmarauli
+                                </div>
+                                <div class="dish-actions">
+                                    <button class="btn btn-secondary btn-small" onclick="showDishDetails(8)">More Info</button>
+                                    <button class="btn btn-primary btn-small" onclick="showNotification('Dish added to order!', 'success')">Order</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dish-card animate-on-scroll" data-dietary="vegetarian" data-dish-id="9">
+                            <img src="resources/georgian-feast.jpg" alt="Pelamushi" class="dish-image">
+                            <div class="dish-info">
+                                <div class="dish-header">
+                                    <div>
+                                        <h3 class="dish-name">Pelamushi</h3>
+                                        <p>Grape pudding dessert</p>
+                                    </div>
+                                    <div class="dish-price">€5.50</div>
+                                </div>
+                                <p class="dish-description">Traditional Georgian dessert made from grape juice, flour, and sugar, topped with nuts. Similar to grape pudding.</p>
+                                <div class="dish-details">
+                                    <span class="dish-weight">~200g</span>
+                                    <span class="dish-allergens">Contains: nuts, gluten</span>
+                                </div>
+                                <div class="wine-pairing">
+                                    <strong>Recommended wine:</strong> Amber Wine
+                                </div>
+                                <div class="dish-actions">
+                                    <button class="btn btn-secondary btn-small" onclick="showDishDetails(9)">More Info</button>
+                                    <button class="btn btn-primary btn-small" onclick="showNotification('Dish added to order!', 'success')">Order</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Beverages Section -->
+                <div class="menu-section" id="beverages">
+                    <div class="menu-grid">
+                        <div class="dish-card animate-on-scroll" data-dietary="vegetarian" data-dish-id="10">
+                            <img src="resources/amber-wine-glass.jpg" alt="Mineral Water Borjomi" class="dish-image">
+                            <div class="dish-info">
+                                <div class="dish-header">
+                                    <div>
+                                        <h3 class="dish-name">Borjomi Mineral Water</h3>
+                                        <p>Natural Georgian mineral water</p>
+                                    </div>
+                                    <div class="dish-price">€3.50</div>
+                                </div>
+                                <p class="dish-description">Famous Georgian mineral water from Borjomi springs, known for its unique taste and health benefits. Naturally carbonated.</p>
+                                <div class="dish-details">
+                                    <span class="dish-weight">0.5L bottle</span>
+                                    <span class="dish-allergens">Natural product</span>
+                                </div>
+                                <div class="dish-actions">
+                                    <button class="btn btn-secondary btn-small" onclick="showDishDetails(10)">More Info</button>
+                                    <button class="btn btn-primary btn-small" onclick="showNotification('Dish added to order!', 'success')">Order</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dish-card animate-on-scroll" data-dietary="vegetarian" data-dish-id="11">
+                            <img src="resources/amber-wine-glass.jpg" alt="Georgian Tea" class="dish-image">
+                            <div class="dish-info">
+                                <div class="dish-header">
+                                    <div>
+                                        <h3 class="dish-name">Georgian Black Tea</h3>
+                                        <p>Traditional Georgian tea</p>
+                                    </div>
+                                    <div class="dish-price">€4.00</div>
+                                </div>
+                                <p class="dish-description">High-quality black tea from Georgian tea plantations, served with honey and lemon. Perfect digestive after meal.</p>
+                                <div class="dish-details">
+                                    <span class="dish-weight">300ml</span>
+                                    <span class="dish-allergens">Contains: caffeine</span>
+                                </div>
+                                <div class="dish-actions">
+                                    <button class="btn btn-secondary btn-small" onclick="showDishDetails(11)">More Info</button>
+                                    <button class="btn btn-primary btn-small" onclick="showNotification('Dish added to order!', 'success')">Order</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Georgian Dining Culture -->
+    <section class="section culture-section">
+        <div class="container">
+            <div class="culture-content animate-on-scroll">
+                <div>
+                    <img src="resources/georgian-feast.jpg" alt="Georgian Supra" class="culture-image">
+                </div>
+                <div class="culture-text">
+                    <h3>Gruziniškas Stalas - Supra</h3>
+                    <p>Gruzijoje valgymas yra ne tik maisto vartojimas, o socialinis ir kultūrinis renginys. Tradicinis gruziniškas stalas vadinamas Supra - tai šventė, kurioje svarbiausia yra bendravimas ir svetingumas.</p>
+                    
+                    <p>Supra vadovauja Tamada - taurės kėlėjas, kuris veda visą šventės eigą, kelia tostus ir palaiko šventinę atmosferą. Kiekvienas patiekalas turi savo vietą ir reikšmę bendrame valgymo procese.</p>
+                    
+                    <ul class="culture-highlights">
+                        <li>Maistas tiekiamas bendrais indais dalijimuisi</li>
+                        <li>Svarbūs socialiniai ritualai ir etiketas</li>
+                        <li>Pagarbos ir svetingumo demonstravimas</li>
+                        <li>Tradiciniai tostai ir dainos</li>
+                        <li>Ilgi, neformalūs pietūs ar vakarienės</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Section -->
+    <section class="section reservation-section">
+        <div class="container">
+            <div class="reservation-content animate-on-scroll">
+                <h2 class="section-title">Rezervuokite Stalą</h2>
+                <p class="section-subtitle">Patirkite autentišką gruzinišką svetingumą pas mus</p>
+                
+                <div class="reservation-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">🍽️</div>
+                        <h4 class="feature-title">Autentiška Virtuvė</h4>
+                        <p>Patiekalai gaminami pagal tradicinius receptus</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">🍷</div>
+                        <h4 class="feature-title">Vyno Poros</h4>
+                        <p>Profesionalūs vyno derinimo pasiūlymai</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">🏠</div>
+                        <h4 class="feature-title">Jauki Atmosfera</h4>
+                        <p>Šiltas gruziniškas svetingumas</p>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="degustacija.html" class="btn btn-primary">Rezervuoti Stalą</a>
+                    <a href="kontaktai.html" class="btn btn-secondary">Susisiekti</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Sakartvelo Skoniai, UAB</h4>
+                    <p>Savanorių pr. 6<br>
+                    LT-03116, Vilnius<br>
+                    Lietuva</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Kontaktai</h4>
+                    <p>Telefonas: <a href="tel:+37063924442">+370 639 24442</a><br>
+                    El. paštas: <a href="mailto:info@sakartveloskoniai.lt">info@sakartveloskoniai.lt</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Darbo Laikas</h4>
+                    <p>I-V: 10:00 - 20:00<br>
+                    VI: 10:00 - 22:00<br>
+                    VII: 12:00 - 18:00</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Sekite Mus</h4>
+                    <p>Socialiniuose tinkluose:<br>
+                    <a href="#">Facebook</a> | <a href="#">Instagram</a></p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Sakartvelo Skoniai, UAB. Visos teisės saugomos.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Dish Detail Modal -->
+    <div id="dish-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-dish-name">Patiekalo Pavadinimas</h3>
+                <button class="modal-close" onclick="closeDishModal()">&times;</button>
+            </div>
+            <div id="modal-dish-content">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        // Menu data
+        const menuData = {
+            1: {
+                name: 'Khachapuri (Adžarų)',
+                description: 'Šviežia duona su sūrio įdaru, kiaušiniu ir sviestu. Gaminama pagal tradicinį Adžarijos regiono receptą.',
+                ingredients: ['Miltai', 'Sūris', 'Kiaušiniai', 'Sviestas', 'Mielės', 'Druska'],
+                nutrition: 'Apie 450 kalorijų',
+                history: 'Khachapuri yra vienas iš populiariausių gruziniškų patiekalų. Adžarų variantas kilęs iš Adžarijos regiono prie Juodosios jūros.',
+                winePairing: 'Tsinandali - lengvas baltas vynas puikiai dera su sūriu ir kiaušiniu.'
+            },
+            2: {
+                name: 'Khinkali (10vnt.)',
+                description: 'Rankų darbo virtinukai su jautienos ir kiaulienos įdaru, sultiniu ir prieskoniais.',
+                ingredients: ['Miltai', 'Jautiena', 'Kiauliena', 'Svogūnai', 'Česnakai', 'Prieskoniai'],
+                nutrition: 'Apie 600 kalorijų',
+                history: 'Khinkali kilę iš kalnų regionų ir buvo mėgstamas klajoklių. Ypatingas būdas valgyti - pakėlus už koto.',
+                winePairing: 'Saperavi - sodrus raudonas vynas puikiai papildo mėsos skonį.'
+            }
+        };
+
+        // Menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            setupMenuTabs();
+            setupDietaryFilters();
+        });
+
+        function setupMenuTabs() {
+            const tabs = document.querySelectorAll('.menu-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const section = this.getAttribute('data-section');
+                    switchMenuSection(section);
+                    
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        }
+
+        function switchMenuSection(sectionId) {
+            const sections = document.querySelectorAll('.menu-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        function setupDietaryFilters() {
+            const filters = document.querySelectorAll('.filter-chip');
+            filters.forEach(filter => {
+                filter.addEventListener('click', function() {
+                    const filterType = this.getAttribute('data-filter');
+                    
+                    // Toggle active state
+                    if (filterType === 'all') {
+                        filters.forEach(f => f.classList.remove('active'));
+                        this.classList.add('active');
+                        showAllDishes();
+                    } else {
+                        document.querySelector('[data-filter="all"]').classList.remove('active');
+                        this.classList.toggle('active');
+                        applyFilters();
+                    }
+                });
+            });
+        }
+
+        function applyFilters() {
+            const activeFilters = Array.from(document.querySelectorAll('.filter-chip.active'))
+                .map(filter => filter.getAttribute('data-filter'))
+                .filter(filter => filter !== 'all');
+
+            const dishes = document.querySelectorAll('.dish-card');
+            
+            dishes.forEach(dish => {
+                const dietary = dish.getAttribute('data-dietary');
+                let shouldShow = true;
+
+                if (activeFilters.length > 0) {
+                    shouldShow = activeFilters.some(filter => {
+                        if (filter === 'vegetarian') return dietary.includes('vegetarian');
+                        if (filter === 'gluten-free') return dietary.includes('gluten-free');
+                        if (filter === 'spicy') return dietary.includes('spicy');
+                        return false;
+                    });
+                }
+
+                if (shouldShow) {
+                    dish.style.display = 'block';
+                    if (typeof anime !== 'undefined') {
+                        anime({
+                            targets: dish,
+                            opacity: [0, 1],
+                            scale: [0.8, 1],
+                            easing: 'easeOutExpo',
+                            duration: 400
+                        });
+                    }
+                } else {
+                    dish.style.display = 'none';
+                }
+            });
+        }
+
+        function showAllDishes() {
+            const dishes = document.querySelectorAll('.dish-card');
+            dishes.forEach(dish => {
+                dish.style.display = 'block';
+                if (typeof anime !== 'undefined') {
+                    anime({
+                        targets: dish,
+                        opacity: [0, 1],
+                        scale: [0.8, 1],
+                        easing: 'easeOutExpo',
+                        duration: 400
+                    });
+                }
+            });
+        }
+
+        function showDishDetails(dishId) {
+            const dish = menuData[dishId];
+            if (!dish) return;
+
+            document.getElementById('modal-dish-name').textContent = dish.name;
+            
+            const modalContent = `
+                <img src="resources/georgian-feast.jpg" alt="${dish.name}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
+                <p style="margin-bottom: 1rem;"><strong>Aprašymas:</strong> ${dish.description}</p>
+                <p style="margin-bottom: 1rem;"><strong>Sudėtis:</strong> ${dish.ingredients.join(', ')}</p>
+                <p style="margin-bottom: 1rem;"><strong>Mityba:</strong> ${dish.nutrition}</p>
+                <p style="margin-bottom: 1rem;"><strong>Istorija:</strong> ${dish.history}</p>
+                <p style="margin-bottom: 1.5rem;"><strong>Vyno derinys:</strong> ${dish.winePairing}</p>
+                <button class="btn btn-primary" style="width: 100%;" onclick="showNotification('Patiekalas pridėtas prie užsakymo!', 'success'); closeDishModal();">Užsakyti</button>
+            `;
+            
+            document.getElementById('modal-dish-content').innerHTML = modalContent;
+            document.getElementById('dish-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDishModal() {
+            document.getElementById('dish-modal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Global notification function
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            if (typeof anime !== 'undefined') {
+                anime({
+                    targets: notification,
+                    translateX: [300, 0],
+                    opacity: [0, 1],
+                    easing: 'easeOutExpo',
+                    duration: 400
+                });
+                
+                setTimeout(() => {
+                    anime({
+                        targets: notification,
+                        translateX: [0, 300],
+                        opacity: [1, 0],
+                        easing: 'easeInExpo',
+                        duration: 400,
+                        complete: () => notification.remove()
+                    });
+                }, 4000);
+            } else {
+                setTimeout(() => notification.remove(), 4000);
+            }
+        }
+    </script>
+</body>
+</html>

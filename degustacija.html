@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vyno Degustacijos - Sakartvelo Skoniai, UAB</title>
+    <meta name="description" content="Patirkite autentišką Gruzijos vyno kultūrą. Profesionalios vyno degustacijos su tradiciniais užkandžiais Vilniuje.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    
+    <style>
+        :root {
+            --wine-red: #722F37;
+            --terracotta: #B85450;
+            --golden-amber: #D4A574;
+            --cream-white: #F8F6F0;
+            --warm-gray: #6B6B6B;
+            --charcoal: #2C2C2C;
+            --sage-green: #8B9A7A;
+            --warm-beige: #E8DCC0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--warm-gray);
+            background-color: var(--cream-white);
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--charcoal);
+        }
+
+        h1 { font-size: 3.5rem; }
+        h2 { font-size: 2.5rem; }
+        h3 { font-size: 1.8rem; }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(248, 246, 240, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(114, 47, 55, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--wine-red);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--wine-red);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--wine-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 3px;
+            background: var(--wine-red);
+            transition: all 0.3s ease;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--wine-red), var(--terracotta));
+            color: white;
+            padding: 8rem 0 4rem;
+            text-align: center;
+        }
+
+        .page-title {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            color: var(--wine-red);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.8;
+        }
+
+        /* Experience Description */
+        .experience-description {
+            background: white;
+        }
+
+        .experience-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .experience-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .experience-text h3 {
+            color: var(--wine-red);
+            margin-bottom: 1.5rem;
+        }
+
+        .experience-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .experience-highlights {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .experience-highlights li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .experience-highlights li::before {
+            content: '🍷';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+        }
+
+        /* Package Selection */
+        .package-selection {
+            background: var(--warm-beige);
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .package-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 3px solid transparent;
+        }
+
+        .package-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(114, 47, 55, 0.2);
+        }
+
+        .package-card.selected {
+            border-color: var(--wine-red);
+            background: linear-gradient(135deg, rgba(114, 47, 55, 0.05), rgba(184, 84, 80, 0.05));
+        }
+
+        .package-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .package-title {
+            color: var(--wine-red);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .package-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--terracotta);
+            margin-bottom: 1rem;
+        }
+
+        .package-description {
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .package-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .package-features li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .package-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--sage-green);
+            font-weight: bold;
+        }
+
+        /* Booking System */
+        .booking-system {
+            background: white;
+        }
+
+        .booking-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .booking-form {
+            background: var(--warm-beige);
+            padding: 2.5rem;
+            border-radius: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--wine-red);
+        }
+
+        .form-group input.error,
+        .form-group textarea.error,
+        .form-group select.error {
+            border-color: #e74c3c;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Calendar */
+        .calendar-container {
+            background: var(--warm-beige);
+            padding: 2.5rem;
+            border-radius: 20px;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .calendar-nav {
+            background: var(--wine-red);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .calendar-nav:hover {
+            background: var(--terracotta);
+        }
+
+        .calendar-month {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--wine-red);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .calendar-day.header {
+            background: var(--wine-red);
+            color: white;
+            cursor: default;
+            font-weight: 600;
+        }
+
+        .calendar-day.available {
+            background: white;
+            color: var(--charcoal);
+        }
+
+        .calendar-day.available:hover {
+            background: var(--golden-amber);
+            color: white;
+        }
+
+        .calendar-day.selected {
+            background: var(--wine-red);
+            color: white;
+        }
+
+        .calendar-day.unavailable {
+            background: #f0f0f0;
+            color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Time Slots */
+        .time-slots {
+            margin-top: 2rem;
+        }
+
+        .time-slots h4 {
+            margin-bottom: 1rem;
+            color: var(--wine-red);
+        }
+
+        .time-slot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .time-slot {
+            padding: 0.75rem;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .time-slot:hover {
+            border-color: var(--golden-amber);
+        }
+
+        .time-slot.selected {
+            background: var(--wine-red);
+            color: white;
+            border-color: var(--wine-red);
+        }
+
+        .time-slot.unavailable {
+            background: #f0f0f0;
+            color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Price Summary */
+        .price-summary {
+            background: var(--wine-red);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .price-summary h4 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .total-price {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-details {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--wine-red);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--terracotta);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(114, 47, 55, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--wine-red);
+            border: 2px solid var(--wine-red);
+        }
+
+        .btn-secondary:hover {
+            background: var(--wine-red);
+            color: white;
+        }
+
+        .btn-tertiary {
+            background: var(--golden-amber);
+            color: var(--charcoal);
+        }
+
+        .btn-tertiary:hover {
+            background: var(--terracotta);
+            color: white;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: var(--warm-beige);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--wine-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .testimonial-info h5 {
+            color: var(--wine-red);
+            margin-bottom: 0.25rem;
+        }
+
+        .testimonial-info p {
+            font-size: 0.9rem;
+            color: var(--warm-gray);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--charcoal);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: var(--golden-amber);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: var(--golden-amber);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            text-align: center;
+        }
+
+        .modal-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--warm-gray);
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .experience-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .calendar-grid {
+                gap: 0.25rem;
+            }
+
+            .calendar-day {
+                font-size: 0.8rem;
+            }
+
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .package-card {
+                padding: 1.5rem;
+            }
+
+            .booking-form, .calendar-container {
+                padding: 1.5rem;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation Classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            color: white;
+            font-weight: 500;
+            z-index: 3000;
+        }
+
+        .notification.success {
+            background: #27ae60;
+        }
+
+        .notification.error {
+            background: #e74c3c;
+        }
+
+        .notification.info {
+            background: var(--wine-red);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Sakartvelo Skoniai</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Pradinis</a></li>
+                <li><a href="apie-mus.html">Apie Mus</a></li>
+                <li><a href="parduotuve.html">Parduotuvė</a></li>
+                <li><a href="meniu.html">Meniu</a></li>
+                <li><a href="degustacija.html" class="active">Degustacija</a></li>
+                <li><a href="kontaktai.html">Kontaktai</a></li>
+            </ul>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Vyno Degustacijos</h1>
+            <p class="page-subtitle">Pažinkite Gruzijos vyno kultūrą per autentiškas degustacijas su tradiciniais užkandžiais</p>
+        </div>
+    </section>
+
+    <!-- Experience Description -->
+    <section class="section experience-description">
+        <div class="container">
+            <div class="experience-content animate-on-scroll">
+                <div>
+                    <img src="resources/wine-tasting-setup.jpg" alt="Vyno degustacija" class="experience-image">
+                </div>
+                <div class="experience-text">
+                    <h3>Kartveliškų Vynų Kelionė</h3>
+                    <p>Dovana, lavinanti skonį ir pažadinanti pojūčius – tai kelionė per šimtmečius Gruzijoje, kur vynas nėra tik gėrimas, o gyvenimo būdas. Mūsų degustacijos metu pažinsite 8000 metų senumo vyno tradicijas, skirtingus regionus ir unikalius skonius.</p>
+                    
+                    <p>Profesionalus someljė pristatys jums autentiškus Gruzijos vynus, paaiškins Qvevri vyndarystės metodą ir papasakos apie kiekvieno vyno istoriją. Degustacija apima tradicinius gruziniškus užkandžius, kurie puikiai dera prie kiekvieno vyno.</p>
+                    
+                    <ul class="experience-highlights">
+                        <li>Pažintis su 4 arba 8 skirtingais vynais</li>
+                        <li>Tradiciniai gruziniški užkandžiai</li>
+                        <li>Profesionalus vyno pristatymas</li>
+                        <li>Qvevri vyndarystės edukacija</li>
+                        <li>Atmintinė apie vynus</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Package Selection -->
+    <section class="section package-selection">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <h2 class="section-title">Pasirinkite Degustacijos Rūšį</h2>
+                <p class="section-subtitle">Du skirtingi paketai, pritaikyti skirtingiems poreikiams ir progoms</p>
+            </div>
+            
+            <div class="packages-grid">
+                <div class="package-card animate-on-scroll" data-package="classic" data-price="50">
+                    <div class="package-icon">🍷</div>
+                    <h3 class="package-title">Klasikinė Degustacija</h3>
+                    <div class="package-price">€50.00</div>
+                    <p class="package-description">Puikus pasirinkimas pirmą kartą pažinti Gruzijos vynus</p>
+                    <ul class="package-features">
+                        <li>4 skirtingi gruziniški vynai</li>
+                        <li>Tradiciniai užkandžiai 2 asmenims</li>
+                        <li>Profesionalus vyno pristatymas</li>
+                        <li>Qvevri vyndarystės edukacija</li>
+                        <li>Trukmė: 1.5 valandos</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="selectPackage('classic', 50)">Pasirinkti</button>
+                </div>
+                
+                <div class="package-card animate-on-scroll" data-package="premium" data-price="100">
+                    <div class="package-icon">🍾</div>
+                    <h3 class="package-title">Premium Degustacija</h3>
+                    <div class="package-price">€100.00</div>
+                    <p class="package-description">Išsamus Gruzijos vyno regionų pažinimas</p>
+                    <ul class="package-features">
+                        <li>8 išskirtiniai vynai iš skirtingų regionų</li>
+                        <li>Pilnas užkandžių meniu 4 asmenims</li>
+                        <li>Someljė paslaugos ir asmeninis dėmesys</li>
+                        <li>Išsami Qvevri technikos demonstracija</li>
+                        <li>Trukmė: 2.5 valandos</li>
+                        <li>Dovanų rinkinys su vynų aprašymais</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="selectPackage('premium', 100)">Pasirinkti</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking System -->
+    <section class="section booking-system">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <h2 class="section-title">Rezervuokite Datą</h2>
+                <p class="section-subtitle">Pasirinkite jums patogų laiką ir datą degustacijai</p>
+            </div>
+            
+            <div class="booking-container">
+                <div class="booking-form animate-on-scroll">
+                    <h3 style="color: var(--wine-red); margin-bottom: 1.5rem;">Jūsų Informacija</h3>
+                    <form id="booking-form">
+                        <div class="form-group">
+                            <label for="guest-name">Vardas Pavardė *</label>
+                            <input type="text" id="guest-name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="guest-email">El. paštas *</label>
+                            <input type="email" id="guest-email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="guest-phone">Telefono numeris *</label>
+                            <input type="tel" id="guest-phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="guest-count">Žmonių skaičius</label>
+                            <select id="guest-count" name="guests" onchange="updateBookingPrice()">
+                                <option value="1">1 asmuo</option>
+                                <option value="2" selected>2 asmenys</option>
+                                <option value="3">3 asmenys</option>
+                                <option value="4">4 asmenys</option>
+                                <option value="5">5 asmenys</option>
+                                <option value="6">6 asmenys</option>
+                                <option value="7">7 asmenys</option>
+                                <option value="8">8 asmenys</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="special-requests">Specialūs pageidavimai ar alergijos</label>
+                            <textarea id="special-requests" name="requests" rows="3" placeholder="Jei turite specialių pageidavimų, alergijų ar kitų pastabų, parašykite čia..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="calendar-container animate-on-scroll">
+                    <div class="calendar-header">
+                        <button class="calendar-nav" onclick="changeMonth(-1)">‹</button>
+                        <div class="calendar-month" id="calendar-month">Gruodis 2024</div>
+                        <button class="calendar-nav" onclick="changeMonth(1)">›</button>
+                    </div>
+                    
+                    <div class="calendar-grid" id="calendar-grid">
+                        <!-- Calendar will be populated by JavaScript -->
+                    </div>
+                    
+                    <div class="time-slots">
+                        <h4>Pasirinkite laiką</h4>
+                        <div class="time-slot-grid" id="time-slots">
+                            <!-- Time slots will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="price-summary">
+                        <h4>Rezervacijos Suvestinė</h4>
+                        <div class="total-price" id="total-price">€50.00</div>
+                        <div class="price-details" id="price-details">
+                            Klasikinė degustacija (2 asm.)<br>
+                            Data: Nepasirinkta<br>
+                            Laikas: Nepasirinktas
+                        </div>
+                        <button class="btn btn-primary" onclick="confirmBooking()" style="margin-top: 1rem; width: 100%;">Patvirtinti Rezervaciją</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section testimonials">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <h2 class="section-title">Klientų Atsiliepimai</h2>
+                <p class="section-subtitle">Ką sako mūsų svečiai apie vyno degustacijas</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card animate-on-scroll">
+                    <p class="testimonial-text">„Nuostabi patirtis! Sužinojau daug apie Gruzijos vyno istoriją, o vynai buvo išskirtiniai. Someljė buvo labai profesionalus ir įdomiai pristatė kiekvieną vyną.“</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">A</div>
+                        <div class="testimonial-info">
+                            <h5>Agnė Petrauskienė</h5>
+                            <p>Klasikinė degustacija</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card animate-on-scroll">
+                    <p class="testimonial-text">„Premium degustacija viršijo visus lūkesčius! 8 skirtingi vynai iš įvairių regionų, nuostabūs užkandžiai. Tai buvo tikra kulinarinė ir kultūrinė kelionė.“</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">M</div>
+                        <div class="testimonial-info">
+                            <h5>Mindaugas Kazlauskas</h5>
+                            <p>Premium degustacija</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card animate-on-scroll">
+                    <p class="testimonial-text">„Puiki vieta šventei! Švenčiau gimtadienį su draugais - viskas buvo tobula. Ačiū už nepamirštamą vakarą ir puikius vynus!“</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">I</div>
+                        <div class="testimonial-info">
+                            <h5>Ieva Jankauskaitė</h5>
+                            <p>Privati šventė</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Sakartvelo Skoniai, UAB</h4>
+                    <p>Savanorių pr. 6<br>
+                    LT-03116, Vilnius<br>
+                    Lietuva</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Kontaktai</h4>
+                    <p>Telefonas: <a href="tel:+37063924442">+370 639 24442</a><br>
+                    El. paštas: <a href="mailto:info@sakartveloskoniai.lt">info@sakartveloskoniai.lt</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Darbo Laikas</h4>
+                    <p>I-V: 10:00 - 20:00<br>
+                    VI: 10:00 - 22:00<br>
+                    VII: 12:00 - 18:00</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Sekite Mus</h4>
+                    <p>Socialiniuose tinkluose:<br>
+                    <a href="#">Facebook</a> | <a href="#">Instagram</a></p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Sakartvelo Skoniai, UAB. Visos teisės saugomos.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
+            <h3 style="color: var(--wine-red); margin-bottom: 1rem;">Rezervacija Patvirtinta!</h3>
+            <p style="margin-bottom: 1.5rem;">Dėkojame už jūsų rezervaciją. Netrukus gausite patvirtinimo el. laišką su visais reikalingais duomenimis.</p>
+            <div id="confirmation-details" style="background: var(--warm-beige); padding: 1rem; border-radius: 10px; margin-bottom: 1.5rem;">
+                <!-- Confirmation details will be populated by JavaScript -->
+            </div>
+            <button class="btn btn-primary" onclick="closeModal()">Gerai</button>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        // Booking system state
+        let selectedPackage = null;
+        let selectedPrice = 0;
+        let currentMonth = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
+        let selectedDate = null;
+        let selectedTime = null;
+
+        // Package selection
+        function selectPackage(packageType, price) {
+            selectedPackage = packageType;
+            selectedPrice = price;
+            
+            // Update UI
+            document.querySelectorAll('.package-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.querySelector(`[data-package="${packageType}"]`).classList.add('selected');
+            
+            updateBookingPrice();
+            showNotification('Pasirinktas paketas atnaujintas!', 'success');
+        }
+
+        // Update booking price
+        function updateBookingPrice() {
+            if (!selectedPackage) return;
+            
+            const guestCount = parseInt(document.getElementById('guest-count')?.value || 2);
+            let totalPrice = 0;
+            let packageName = '';
+            
+            if (selectedPackage === 'classic') {
+                totalPrice = Math.ceil(guestCount / 2) * selectedPrice;
+                packageName = 'Klasikinė degustacija';
+            } else if (selectedPackage === 'premium') {
+                totalPrice = Math.ceil(guestCount / 4) * selectedPrice;
+                packageName = 'Premium degustacija';
+            }
+            
+            document.getElementById('total-price').textContent = `€${totalPrice.toFixed(2)}`;
+            
+            const dateText = selectedDate ? new Date(selectedDate).toLocaleDateString('lt-LT') : 'Nepasirinkta';
+            const timeText = selectedTime || 'Nepasirinktas';
+            
+            document.getElementById('price-details').innerHTML = `
+                ${packageName} (${guestCount} asm.)<br>
+                Data: ${dateText}<br>
+                Laikas: ${timeText}
+            `;
+        }
+
+        // Calendar functionality
+        function generateCalendar() {
+            const monthNames = [
+                'Sausis', 'Vasaris', 'Kovas', 'Balandis', 'Gegužė', 'Birželis',
+                'Liepa', 'Rugpjūtis', 'Rugsėjis', 'Spalis', 'Lapkritis', 'Gruodis'
+            ];
+            
+            document.getElementById('calendar-month').textContent = `${monthNames[currentMonth]} ${currentYear}`;
+            
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            const today = new Date();
+            
+            const calendarGrid = document.getElementById('calendar-grid');
+            
+            // Header
+            const dayHeaders = ['S', 'P', 'A', 'T', 'K', 'P', 'Š'];
+            dayHeaders.forEach(day => {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day header';
+                dayElement.textContent = day;
+                calendarGrid.appendChild(dayElement);
+            });
+            
+            // Empty cells for days before month starts
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.className = 'calendar-day';
+                calendarGrid.appendChild(emptyDay);
+            }
+            
+            // Days of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                const dayDate = new Date(currentYear, currentMonth, day);
+                const isToday = dayDate.toDateString() === today.toDateString();
+                const isPast = dayDate < today;
+                const isWeekend = dayDate.getDay() === 0 || dayDate.getDay() === 6;
+                
+                dayElement.className = 'calendar-day';
+                dayElement.textContent = day;
+                
+                if (isPast) {
+                    dayElement.className += ' unavailable';
+                } else if (isWeekend) {
+                    dayElement.className += ' unavailable';
+                } else {
+                    dayElement.className += ' available';
+                    dayElement.onclick = () => selectDate(dayDate);
+                }
+                
+                if (selectedDate && dayDate.toDateString() === new Date(selectedDate).toDateString()) {
+                    dayElement.className += ' selected';
+                }
+                
+                calendarGrid.appendChild(dayElement);
+            }
+        }
+
+        function selectDate(date) {
+            selectedDate = date;
+            generateCalendar();
+            generateTimeSlots();
+            updateBookingPrice();
+        }
+
+        function changeMonth(direction) {
+            currentMonth += direction;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            } else if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            
+            document.getElementById('calendar-grid').innerHTML = '';
+            generateCalendar();
+        }
+
+        function generateTimeSlots() {
+            const timeSlots = [
+                '14:00', '15:00', '16:00', '17:00',
+                '18:00', '19:00', '20:00'
+            ];
+            
+            const timeSlotsContainer = document.getElementById('time-slots');
+            timeSlotsContainer.innerHTML = '';
+            
+            timeSlots.forEach(time => {
+                const timeElement = document.createElement('div');
+                timeElement.className = 'time-slot';
+                timeElement.textContent = time;
+                timeElement.onclick = () => selectTime(time);
+                
+                if (selectedTime === time) {
+                    timeElement.className += ' selected';
+                }
+                
+                timeSlotsContainer.appendChild(timeElement);
+            });
+        }
+
+        function selectTime(time) {
+            selectedTime = time;
+            
+            // Update UI
+            document.querySelectorAll('.time-slot').forEach(slot => {
+                slot.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
+            
+            updateBookingPrice();
+        }
+
+        function confirmBooking() {
+            const form = document.getElementById('booking-form');
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            
+            // Validate form
+            if (!data.name || !data.email || !data.phone) {
+                showNotification('Užpildykite visus privalomus laukus', 'error');
+                return;
+            }
+            
+            if (!selectedDate || !selectedTime) {
+                showNotification('Pasirinkite datą ir laiką', 'error');
+                return;
+            }
+            
+            if (!selectedPackage) {
+                showNotification('Pasirinkite degustacijos paketą', 'error');
+                return;
+            }
+            
+            // Show confirmation modal
+            const packageName = selectedPackage === 'classic' ? 'Klasikinė degustacija' : 'Premium degustacija';
+            const guestCount = parseInt(data.guests || 2);
+            const totalPrice = selectedPackage === 'classic' ? 
+                Math.ceil(guestCount / 2) * selectedPrice : 
+                Math.ceil(guestCount / 4) * selectedPrice;
+            
+            document.getElementById('confirmation-details').innerHTML = `
+                <strong>${packageName}</strong><br>
+                Data: ${new Date(selectedDate).toLocaleDateString('lt-LT')}<br>
+                Laikas: ${selectedTime}<br>
+                Dalyvių skaičius: ${guestCount}<br>
+                Kaina: €${totalPrice.toFixed(2)}
+            `;
+            
+            document.getElementById('confirmation-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('confirmation-modal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Global notification function
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            if (typeof anime !== 'undefined') {
+                anime({
+                    targets: notification,
+                    translateX: [300, 0],
+                    opacity: [0, 1],
+                    easing: 'easeOutExpo',
+                    duration: 400
+                });
+                
+                setTimeout(() => {
+                    anime({
+                        targets: notification,
+                        translateX: [0, 300],
+                        opacity: [1, 0],
+                        easing: 'easeInExpo',
+                        duration: 400,
+                        complete: () => notification.remove()
+                    });
+                }, 4000);
+            } else {
+                setTimeout(() => notification.remove(), 4000);
+            }
+        }
+
+        // Initialize calendar on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            generateCalendar();
+            generateTimeSlots();
+        });
+    </script>
+</body>
+</html>

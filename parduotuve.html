@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vyno Parduotuvė - Sakartvelo Skoniai, UAB</title>
+    <meta name="description" content="Atraskite autentiškus Gruzijos vynus. Saperavi, Rkatsiteli, Kindzmarauli ir kiti išskirtiniai vynai iš kiekvieno Gruzijos regiono.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    
+    <style>
+        :root {
+            --wine-red: #722F37;
+            --terracotta: #B85450;
+            --golden-amber: #D4A574;
+            --cream-white: #F8F6F0;
+            --warm-gray: #6B6B6B;
+            --charcoal: #2C2C2C;
+            --sage-green: #8B9A7A;
+            --warm-beige: #E8DCC0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--warm-gray);
+            background-color: var(--cream-white);
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--charcoal);
+        }
+
+        h1 { font-size: 3.5rem; }
+        h2 { font-size: 2.5rem; }
+        h3 { font-size: 1.8rem; }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(248, 246, 240, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(114, 47, 55, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--wine-red);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--wine-red);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--wine-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 3px;
+            background: var(--wine-red);
+            transition: all 0.3s ease;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--wine-red), var(--terracotta));
+            color: white;
+            padding: 8rem 0 4rem;
+            text-align: center;
+        }
+
+        .page-title {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Shop Layout */
+        .shop-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 3rem;
+        }
+
+        /* Filters Sidebar */
+        .filters-sidebar {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+        }
+
+        .filters-title {
+            color: var(--wine-red);
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+        }
+
+        .filter-group {
+            margin-bottom: 2rem;
+        }
+
+        .filter-group h4 {
+            margin-bottom: 1rem;
+            color: var(--charcoal);
+            font-size: 1.1rem;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--wine-red);
+        }
+
+        .filter-option label {
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .filter-btn {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            background: transparent;
+            border: 2px solid var(--warm-beige);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--wine-red);
+            color: white;
+            border-color: var(--wine-red);
+        }
+
+        /* Price Range Slider */
+        .price-range {
+            margin: 1rem 0;
+        }
+
+        .price-slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--warm-beige);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .price-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--wine-red);
+            cursor: pointer;
+        }
+
+        .price-values {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--warm-gray);
+        }
+
+        /* Wine Grid */
+        .wines-section {
+            min-height: 600px;
+        }
+
+        .wines-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .wines-count {
+            color: var(--warm-gray);
+            font-size: 1.1rem;
+        }
+
+        .sort-select {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--warm-beige);
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .wine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .wine-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .wine-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(114, 47, 55, 0.2);
+        }
+
+        .wine-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            position: relative;
+        }
+
+        .wine-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--wine-red);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .wine-info {
+            padding: 1.5rem;
+        }
+
+        .wine-name {
+            font-size: 1.2rem;
+            color: var(--wine-red);
+            margin-bottom: 0.5rem;
+        }
+
+        .wine-type {
+            color: var(--terracotta);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .wine-region {
+            color: var(--warm-gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .wine-description {
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        .wine-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--warm-gray);
+        }
+
+        .wine-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--wine-red);
+            margin-bottom: 1rem;
+        }
+
+        .wine-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--wine-red);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--terracotta);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(114, 47, 55, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--wine-red);
+            border: 2px solid var(--wine-red);
+        }
+
+        .btn-secondary:hover {
+            background: var(--wine-red);
+            color: white;
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 4rem 0;
+            color: var(--warm-gray);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--warm-beige);
+            border-top: 4px solid var(--wine-red);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 0;
+            color: var(--warm-gray);
+        }
+
+        .empty-state h3 {
+            margin-bottom: 1rem;
+            color: var(--charcoal);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--warm-gray);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--wine-red);
+        }
+
+        .form-group input.error,
+        .form-group textarea.error,
+        .form-group select.error {
+            border-color: #e74c3c;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--charcoal);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: var(--golden-amber);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: var(--golden-amber);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .shop-container {
+                grid-template-columns: 250px 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .shop-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .filters-sidebar {
+                position: static;
+                order: 2;
+            }
+
+            .wines-section {
+                order: 1;
+            }
+
+            .wine-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .shop-container {
+                padding: 2rem 1rem;
+            }
+
+            .filters-sidebar {
+                padding: 1.5rem;
+            }
+
+            .wine-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .wines-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+        }
+
+        /* Animation Classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            color: white;
+            font-weight: 500;
+            z-index: 3000;
+        }
+
+        .notification.success {
+            background: #27ae60;
+        }
+
+        .notification.error {
+            background: #e74c3c;
+        }
+
+        .notification.info {
+            background: var(--wine-red);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Sakartvelo Skoniai</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Pradinis</a></li>
+                <li><a href="apie-mus.html">Apie Mus</a></li>
+                <li><a href="parduotuve.html" class="active">Parduotuvė</a></li>
+                <li><a href="meniu.html">Meniu</a></li>
+                <li><a href="degustacija.html">Degustacija</a></li>
+                <li><a href="kontaktai.html">Kontaktai</a></li>
+            </ul>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Vyno Parduotuvė</h1>
+            <p class="page-subtitle">Atraskite autentiškus Gruzijos vynus iš kiekvieno šalies regiono</p>
+        </div>
+    </section>
+
+    <!-- Shop Container -->
+    <div class="shop-container">
+        <!-- Filters Sidebar -->
+        <aside class="filters-sidebar">
+            <h3 class="filters-title">Filtrai</h3>
+            
+            <!-- Wine Type Filter -->
+            <div class="filter-group">
+                <h4>Vyno Tipas</h4>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="red" value="red" checked>
+                        <label for="red">Raudonas</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="white" value="white" checked>
+                        <label for="white">Baltas</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="amber" value="amber" checked>
+                        <label for="amber">Gintarinis</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="qvevri" value="qvevri" checked>
+                        <label for="qvevri">Qvevri</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Region Filter -->
+            <div class="filter-group">
+                <h4>Regionas</h4>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="kakheti" value="kakheti" checked>
+                        <label for="kakheti">Kakheti</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="kartli" value="kartli" checked>
+                        <label for="kartli">Kartli</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="imereti" value="imereti" checked>
+                        <label for="imereti">Imereti</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="racha" value="racha" checked>
+                        <label for="racha">Racha-Lechkhumi</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Price Range -->
+            <div class="filter-group">
+                <h4>Kaina</h4>
+                <div class="price-range">
+                    <input type="range" id="price-range" class="price-slider" min="10" max="50" value="50">
+                    <div class="price-values">
+                        <span>€10</span>
+                        <span id="max-price">€50</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sweetness Level -->
+            <div class="filter-group">
+                <h4>Saldumas</h4>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="dry" value="dry" checked>
+                        <label for="dry">Sausas</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="semi-dry" value="semi-dry" checked>
+                        <label for="semi-dry">Pusiau sausas</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="semi-sweet" value="semi-sweet" checked>
+                        <label for="semi-sweet">Pusiau saldus</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="sweet" value="sweet" checked>
+                        <label for="sweet">Saldus</label>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-secondary" onclick="clearFilters()">Išvalyti Filtrus</button>
+        </aside>
+
+        <!-- Wines Section -->
+        <main class="wines-section">
+            <div class="wines-header">
+                <div class="wines-count" id="wines-count">Rasta 12 vynų</div>
+                <select class="sort-select" id="sort-select">
+                    <option value="name">Pagal pavadinimą</option>
+                    <option value="price-low">Kaina: nuo mažiausios</option>
+                    <option value="price-high">Kaina: nuo didžiausios</option>
+                    <option value="region">Pagal regioną</option>
+                </select>
+            </div>
+
+            <div class="wine-grid" id="wine-grid">
+                <!-- Wine cards will be populated by JavaScript -->
+            </div>
+
+            <div class="loading" id="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Kraunama...</p>
+            </div>
+
+            <div class="empty-state" id="empty-state" style="display: none;">
+                <h3>Nerasta vynų</h3>
+                <p>Pabandykite pakeisti filtravimo kriterijus</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Sakartvelo Skoniai, UAB</h4>
+                    <p>Savanorių pr. 6<br>
+                    LT-03116, Vilnius<br>
+                    Lietuva</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Kontaktai</h4>
+                    <p>Telefonas: <a href="tel:+37063924442">+370 639 24442</a><br>
+                    El. paštas: <a href="mailto:info@sakartveloskoniai.lt">info@sakartveloskoniai.lt</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Darbo Laikas</h4>
+                    <p>I-V: 10:00 - 20:00<br>
+                    VI: 10:00 - 22:00<br>
+                    VII: 12:00 - 18:00</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Sekite Mus</h4>
+                    <p>Socialiniuose tinkluose:<br>
+                    <a href="#">Facebook</a> | <a href="#">Instagram</a></p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Sakartvelo Skoniai, UAB. Visos teisės saugomos.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Wine Order Modal -->
+    <div id="wine-order-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Užsakyti Vyną</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div id="modal-wine-info">
+                <!-- Wine info will be populated by JavaScript -->
+            </div>
+            <form id="wine-order-form">
+                <div class="form-group">
+                    <label for="customer-name">Vardas Pavardė *</label>
+                    <input type="text" id="customer-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="customer-email">El. paštas *</label>
+                    <input type="email" id="customer-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="customer-phone">Telefono numeris *</label>
+                    <input type="tel" id="customer-phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Kiekis</label>
+                    <select id="quantity" name="quantity">
+                        <option value="1">1 butelis</option>
+                        <option value="2">2 buteliai</option>
+                        <option value="3">3 buteliai</option>
+                        <option value="6">6 buteliai (dėžė)</option>
+                        <option value="12">12 butelių (2 dėžės)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Papildoma informacija</label>
+                    <textarea id="message" name="message" rows="3" placeholder="Jei turite specialių pageidavimų, parašykite juos čia..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Siųsti Užklausą</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        // Extended wine data for the shop
+        const extendedWineData = [
+            {
+                id: 1,
+                name: 'Saperavi Premium',
+                region: 'Kakheti',
+                type: 'Red',
+                category: 'red',
+                price: 18.99,
+                alcohol: '14%',
+                sweetness: 'dry',
+                description: 'Giliausios spalvos ir intensyvaus skonio raudonasis vynas, brandintas ąžuolinėse statinėse.',
+                image: 'resources/amber-wine-glass.jpg',
+                badge: 'Premium',
+                details: {
+                    vintage: '2019',
+                    vineyard: 'Telavi Wine Cellar',
+                    aging: '18 mėn. prancūziško ąžuolo',
+                    taste: 'Juodieji serbentai, slyvos, prieskoniai',
+                    temperature: '16-18°C',
+                    pairing: 'Mėsa, brandinti sūriai'
+                }
+            },
+            {
+                id: 2,
+                name: 'Kindzmarauli',
+                region: 'Kakheti',
+                type: 'Red Semi-Sweet',
+                category: 'red',
+                price: 16.50,
+                alcohol: '12.5%',
+                sweetness: 'semi-sweet',
+                description: 'Natūraliai saldus, šilkinio skonio vynas iš vėlyvojo derliaus Saperavi vynuogių.',
+                image: 'resources/amber-wine-glass.jpg',
+                badge: 'Populiarus',
+                details: {
+                    vintage: '2020',
+                    vineyard: 'Kindzmarauli Marani',
+                    aging: '6 mėn. ąžuolo',
+                    taste: 'Slyvos, šokoladas, vanilė',
+                    temperature: '14-16°C',
+                    pairing: 'Desertai, vaisiai, lengvi patiekalai'
+                }
+            },
+            {
+                id: 3,
+                name: 'Mukuzani Reserve',
+                region: 'Kakheti',
+                type: 'Red Dry',
+                category: 'red',
+                price: 22.00,
+                alcohol: '14.5%',
+                sweetness: 'dry',
+                description: 'Aukščiausios klasės sausas raudonasis vynas, brandintas 3 metus ąžuolo statinėse.',
+                image: 'resources/amber-wine-glass.jpg',
+                badge: 'Ribota',
+                details: {
+                    vintage: '2018',
+                    vineyard: 'Mukuzani Winery',
+                    aging: '3 metai ąžuolo',
+                    taste: 'Juodieji serbentai, cigaras, ąžuolas',
+                    temperature: '16-18°C',
+                    pairing: 'Kepsniai, brandinti sūriai, medžioklė'
+                }
+            },
+            {
+                id: 4,
+                name: 'Rkatsiteli Qvevri',
+                region: 'Kakheti',
+                type: 'Amber Dry',
+                category: 'amber',
+                price: 19.99,
+                alcohol: '13%',
+                sweetness: 'dry',
+                description: 'Tradiciniu metodu Qvevri inde brandintas gintarinis vynas su išskirtiniu skoniu.',
+                image: 'resources/amber-wine-glass.jpg',
+                badge: 'Qvevri',
+                details: {
+                    vintage: '2021',
+                    vineyard: 'Traditional Marani',
+                    aging: '6 mėn. Qvevri inde',
+                    taste: 'Medus, džiovinti vaisiai, riešutai',
+                    temperature: '12-14°C',
+                    pairing: 'Aštrūs patiekalai, sūriai'
+                }
+            },
+            {
+                id: 5,
+                name: 'Khikhvi Amber',
+                region: 'Kakheti',
+                type: 'Amber Dry',
+                category: 'amber',
+                price: 21.50,
+                alcohol: '12.8%',
+                sweetness: 'dry',
+                description: 'Retos Khikhvi vynuogės, brandintos 6 mėnesius Qvevri inde su žievelėmis.',
+                image: 'resources/amber-wine-glass.jpg',
+                badge: 'Retas',
+                details: {
+                    vintage: '2021',
+                    vineyard: 'Artisan Winery',
+                    aging: '6 mėn. Qvevri',
+                    taste: 'Citrinžolė, medus, žolelių arbata',
+                    temperature: '12-14°C',
+                    pairing: 'Jūros gėrybės, balti sūriai'
+                }
+            },
+            {
+                id: 6,
+                name: 'Tsinandali',
+                region: 'Kakheti',
+                type: 'White Dry',
+                category: 'white',
+                price: 15.99,
+                alcohol: '12.5%',
+                sweetness: 'dry',
+                description: 'Elegantiškas baltasis vynas iš Rkatsiteli ir Mtsvane vynuogių mišinio.',
+                image: 'resources/amber-wine-glass.jpg',
+                badge: 'Klasikinis',
+                details: {
+                    vintage: '2022',
+                    vineyard: 'Tsinandali Estate',
+                    aging: '3 mėn. nerūdijantis plienas',
+                    taste: 'Žalios obuolys, kriaušė, citrusai',
+                    temperature: '8-10°C',
+                    pairing: 'Žuvis, jūros gėrybės, salotos'
+                }
+            },
+            {
+                id: 7,
+                name: 'Mtsvane',
+                region: 'Kakheti',
+                type: 'White Dry',
+                category: 'white',
+                price: 14.50,
+                alcohol: '12%',
+                sweetness: 'dry',
+                description: 'Aromatingas baltasis vynas su vaisių ir gėlių natomis.',
+                image: 'resources/amber-wine-glass.jpg',
+                badge: 'Aromatingas',
+                details: {
+                    vintage: '2022',
+                    vineyard: 'Kakheti Hills',
+                    aging: '4 mėn. nerūdijantis plienas',
+                    taste: 'Persikas, gėlių žiedai, medus',
+                    temperature: '8-10°C',
+                    pairing: 'Lengvi užkandžiai, salotos, balti sūriai'
+                }
+            },
+            {
+                id: 8,
+                name: 'Kisi Qvevri',
+                region: 'Kakheti',
+                type: 'Amber Dry',
+                category: 'amber',
+                price: 23.99,
+                alcohol: '13.5%',
+                sweetness: 'dry',
+                description: 'Išskirtinis Kisi vynuogių vynas, brandintas tradiciniu Qvevri metodu.',
+                image: 'resources/amber-wine-glass.jpg',
+                badge: 'Ekskliuzyvas',
+                details: {
+                    vintage: '2020',
+                    vineyard: 'Ancient Methods',
+                    aging: '8 mėn. Qvevri inde',
+                    taste: 'Tropiniai vaisiai, medus, prieskoniai',
+                    temperature: '12-14°C',
+                    pairing: 'Egzotiški patiekalai, aštrus maistas'
+                }
+            }
+        ];
+
+        // Initialize shop functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            renderWineGrid(extendedWineData);
+            setupFilters();
+            setupPriceSlider();
+            setupSorting();
+        });
+
+        function renderWineGrid(wines) {
+            const grid = document.getElementById('wine-grid');
+            const count = document.getElementById('wines-count');
+            const emptyState = document.getElementById('empty-state');
+            
+            if (wines.length === 0) {
+                grid.style.display = 'none';
+                emptyState.style.display = 'block';
+                count.textContent = 'Rasta 0 vynų';
+                return;
+            }
+            
+            grid.style.display = 'grid';
+            emptyState.style.display = 'none';
+            count.textContent = `Rasta ${wines.length} vynų`;
+            
+            grid.innerHTML = wines.map(wine => `
+                <div class="wine-card" data-category="${wine.category}">
+                    <div style="position: relative;">
+                        <img src="${wine.image}" alt="${wine.name}" class="wine-image">
+                        ${wine.badge ? `<span class="wine-badge">${wine.badge}</span>` : ''}
+                    </div>
+                    <div class="wine-info">
+                        <h3 class="wine-name">${wine.name}</h3>
+                        <p class="wine-type">${wine.type}</p>
+                        <p class="wine-region">${wine.region} regionas</p>
+                        <p class="wine-description">${wine.description}</p>
+                        <div class="wine-details">
+                            <span>Alk: ${wine.alcohol}</span>
+                            <span>Derlius: ${wine.details.vintage}</span>
+                        </div>
+                        <p class="wine-price">€${wine.price.toFixed(2)}</p>
+                        <div class="wine-actions">
+                            <button class="btn btn-secondary btn-small" onclick="openWineModal(${wine.id})">Plačiau</button>
+                            <button class="btn btn-primary btn-small" onclick="openOrderModal(${wine.id})">Užsakyti</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function setupFilters() {
+            const filterInputs = document.querySelectorAll('.filter-options input[type="checkbox"]');
+            filterInputs.forEach(input => {
+                input.addEventListener('change', applyFilters);
+            });
+        }
+
+        function setupPriceSlider() {
+            const priceSlider = document.getElementById('price-range');
+            const maxPriceDisplay = document.getElementById('max-price');
+            
+            priceSlider.addEventListener('input', function() {
+                maxPriceDisplay.textContent = `€${this.value}`;
+                applyFilters();
+            });
+        }
+
+        function setupSorting() {
+            const sortSelect = document.getElementById('sort-select');
+            sortSelect.addEventListener('change', applyFilters);
+        }
+
+        function applyFilters() {
+            const checkedTypes = Array.from(document.querySelectorAll('.filter-options input[type="checkbox"]:checked'))
+                .map(input => input.value);
+            
+            const maxPrice = parseFloat(document.getElementById('price-range').value);
+            const sortBy = document.getElementById('sort-select').value;
+            
+            let filteredWines = extendedWineData.filter(wine => {
+                return checkedTypes.includes(wine.category) &&
+                       checkedTypes.includes(wine.region) &&
+                       checkedTypes.includes(wine.sweetness) &&
+                       wine.price <= maxPrice;
+            });
+
+            // Apply sorting
+            filteredWines.sort((a, b) => {
+                switch (sortBy) {
+                    case 'price-low':
+                        return a.price - b.price;
+                    case 'price-high':
+                        return b.price - a.price;
+                    case 'name':
+                        return a.name.localeCompare(b.name);
+                    case 'region':
+                        return a.region.localeCompare(b.region);
+                    default:
+                        return 0;
+                }
+            });
+
+            renderWineGrid(filteredWines);
+        }
+
+        function clearFilters() {
+            // Reset all checkboxes
+            document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(input => {
+                input.checked = true;
+            });
+            
+            // Reset price slider
+            document.getElementById('price-range').value = 50;
+            document.getElementById('max-price').textContent = '€50';
+            
+            // Reset sorting
+            document.getElementById('sort-select').value = 'name';
+            
+            // Re-render
+            renderWineGrid(extendedWineData);
+        }
+
+        function openWineModal(wineId) {
+            const wine = extendedWineData.find(w => w.id === wineId);
+            if (!wine) return;
+            
+            // Create modal content
+            const modalContent = `
+                <img src="${wine.image}" alt="${wine.name}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                    <div><strong>Regionas:</strong> ${wine.region}</div>
+                    <div><strong>Derlius:</strong> ${wine.details.vintage}</div>
+                    <div><strong>Tipas:</strong> ${wine.type}</div>
+                    <div><strong>Alkoholis:</strong> ${wine.alcohol}</div>
+                </div>
+                <p><strong>Apibūdinimas:</strong> ${wine.description}</p>
+                <p><strong>Vyndarystė:</strong> ${wine.details.vineyard} - ${wine.details.aging}</p>
+                <p><strong>Skonio natos:</strong> ${wine.details.taste}</p>
+                <p><strong>Pateikimas:</strong> ${wine.details.temperature}</p>
+                <p><strong>Puikiai tinka prie:</strong> ${wine.details.pairing}</p>
+            `;
+            
+            document.getElementById('modal-wine-info').innerHTML = modalContent;
+            document.getElementById('wine-order-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function openOrderModal(wineId) {
+            const wine = extendedWineData.find(w => w.id === wineId);
+            if (!wine) return;
+            
+            // Pre-fill wine info in order form
+            const wineInfo = `
+                <div style="background: var(--warm-beige); padding: 1rem; border-radius: 10px; margin-bottom: 1.5rem;">
+                    <h4>${wine.name}</h4>
+                    <p><strong>Kaina:</strong> €${wine.price.toFixed(2)}</p>
+                    <p><strong>Tipas:</strong> ${wine.type}</p>
+                </div>
+            `;
+            
+            document.getElementById('modal-wine-info').innerHTML = wineInfo;
+            document.getElementById('wine-order-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Global notification function
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            if (typeof anime !== 'undefined') {
+                anime({
+                    targets: notification,
+                    translateX: [300, 0],
+                    opacity: [0, 1],
+                    easing: 'easeOutExpo',
+                    duration: 400
+                });
+                
+                setTimeout(() => {
+                    anime({
+                        targets: notification,
+                        translateX: [0, 300],
+                        opacity: [1, 0],
+                        easing: 'easeInExpo',
+                        duration: 400,
+                        complete: () => notification.remove()
+                    });
+                }, 4000);
+            } else {
+                setTimeout(() => notification.remove(), 4000);
+            }
+        }
+    </script>
+</body>
+</html>
