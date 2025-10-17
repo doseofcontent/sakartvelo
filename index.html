@@ -1,902 +1,790 @@
 <!DOCTYPE html>
-<html lang="lt">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sakartvelo Skoniai, UAB - Autentiški Gruziniški Vynai ir Maistas</title>
-    <meta name="description" content="Atraskite 8000 metų Gruzijos vyno tradiciją. Autentiški vynai, tradiciniai patiekalai ir vyno degustacijos Vilniuje.">
-    
-    <!-- Fonts -->
+    <title>Edvinfoto.lt – Professional Photobooth-Style Photography for €200</title>
+    <meta name="description" content="Book Edvinfoto.lt for a unique €200 photobooth-style photography experience with a professional photographer guiding you every step of the way.">
+    <meta name="keywords" content="Edvinfoto, professional photobooth, event photography, €200 photography, photobooth alternative">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Core Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --wine-red: #722F37;
-            --terracotta: #B85450;
-            --golden-amber: #D4A574;
-            --cream-white: #F8F6F0;
-            --warm-gray: #6B6B6B;
-            --charcoal: #2C2C2C;
-            --sage-green: #8B9A7A;
-            --warm-beige: #E8DCC0;
+            --color-dark: #1f1f1f;
+            --color-mid: #444444;
+            --color-light: #f7f6f2;
+            --color-white: #ffffff;
+            --color-accent: #c9a646;
+            --color-accent-dark: #9b7d2c;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
+        *, *::before, *::after {
             box-sizing: border-box;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--warm-gray);
-            background-color: var(--cream-white);
-            overflow-x: hidden;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            color: var(--color-mid);
+            background: var(--color-light);
+            line-height: 1.7;
         }
 
-        /* Typography */
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 600;
-            line-height: 1.2;
-            color: var(--charcoal);
+        img {
+            max-width: 100%;
+            display: block;
         }
 
-        h1 { font-size: 3.5rem; }
-        h2 { font-size: 2.5rem; }
-        h3 { font-size: 1.8rem; }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
 
-        /* Navigation */
-        .navbar {
+        header {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
-            background: rgba(248, 246, 240, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(114, 47, 55, 0.1);
+            z-index: 999;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(31, 31, 31, 0.06);
         }
 
-        .nav-container {
+        .nav-wrapper {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 1rem 2rem;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
         }
 
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--wine-red);
-            text-decoration: none;
-        }
-
-        .nav-links {
+        .brand {
             display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 600;
+            color: var(--color-dark);
+        }
+
+        .brand-mark {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2px solid var(--color-accent);
+            display: grid;
+            place-items: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--color-accent);
+        }
+
+        nav ul {
             list-style: none;
+            display: flex;
             gap: 2rem;
+            margin: 0;
+            padding: 0;
         }
 
-        .nav-links a {
-            text-decoration: none;
-            color: var(--charcoal);
+        nav a {
             font-weight: 500;
-            transition: color 0.3s ease;
+            color: var(--color-mid);
             position: relative;
+            padding-bottom: 0.4rem;
         }
 
-        .nav-links a:hover {
-            color: var(--wine-red);
-        }
-
-        .nav-links a::after {
+        nav a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
             left: 0;
-            width: 0;
+            bottom: 0;
             height: 2px;
-            background: var(--wine-red);
+            width: 0;
+            background: var(--color-accent);
             transition: width 0.3s ease;
         }
 
-        .nav-links a:hover::after {
+        nav a:hover::after,
+        nav a:focus::after {
             width: 100%;
         }
 
-        .mobile-menu-btn {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 4px;
-        }
-
-        .mobile-menu-btn span {
-            width: 25px;
-            height: 3px;
-            background: var(--wine-red);
-            transition: all 0.3s ease;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            position: relative;
-            display: flex;
+        .cta-button {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            color: white;
-            overflow: hidden;
+            gap: 0.5rem;
+            padding: 0.85rem 1.9rem;
+            border-radius: 999px;
+            background: var(--color-accent);
+            color: var(--color-white);
+            font-weight: 600;
+            box-shadow: 0 12px 30px rgba(201, 166, 70, 0.22);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
         }
 
-        .hero-background {
+        .cta-button:hover,
+        .cta-button:focus {
+            background: var(--color-accent-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 18px 40px rgba(201, 166, 70, 0.26);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: var(--color-dark);
+            border: 1px solid rgba(31, 31, 31, 0.15);
+            box-shadow: none;
+        }
+
+        .hero {
+            position: relative;
+            min-height: 88vh;
+            padding: 7rem 2rem 4rem;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            color: var(--color-white);
+        }
+
+        .hero::before {
+            content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('resources/hero-vineyard.jpg');
-            background-size: cover;
-            background-position: center;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(22, 22, 22, 0.86), rgba(22, 22, 22, 0.45)),
+                        url('https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+            z-index: -2;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 100%);
             z-index: -1;
         }
 
         .hero-content {
-            max-width: 800px;
-            padding: 0 2rem;
-            z-index: 2;
+            max-width: 760px;
+            display: grid;
+            gap: 1.5rem;
         }
 
-        .hero-title {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.4rem, 5vw, 3.8rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin: 0;
         }
 
-        .hero-subtitle {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+        .hero p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.84);
+            margin-bottom: 0.5rem;
         }
 
         .hero-cta {
             display: flex;
-            gap: 1.5rem;
             justify-content: center;
+            gap: 1rem;
             flex-wrap: wrap;
         }
 
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 1rem 2rem;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-            font-size: 1rem;
+        section {
+            padding: 5rem 2rem;
         }
 
-        .btn-primary {
-            background: var(--wine-red);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: var(--terracotta);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(114, 47, 55, 0.3);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .btn-secondary:hover {
-            background: white;
-            color: var(--wine-red);
-        }
-
-        .btn-tertiary {
-            background: var(--golden-amber);
-            color: var(--charcoal);
-        }
-
-        .btn-tertiary:hover {
-            background: var(--terracotta);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        /* Section Styles */
-        .section {
-            padding: 5rem 0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .section-header {
+        .section-heading {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 3rem;
         }
 
-        .section-title {
-            color: var(--wine-red);
-            margin-bottom: 1rem;
+        .section-heading h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            color: var(--color-dark);
+            margin-bottom: 0.75rem;
         }
 
-        .section-subtitle {
-            font-size: 1.1rem;
-            max-width: 600px;
+        .section-heading p {
+            max-width: 640px;
             margin: 0 auto;
-            opacity: 0.8;
+            color: var(--color-mid);
+            font-weight: 300;
         }
 
-        /* Wine Showcase */
-        .wine-showcase {
-            background: var(--warm-beige);
-        }
-
-        .wine-grid {
+        .about-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 3rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            align-items: center;
         }
 
-        .wine-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
+        .about-card {
+            background: var(--color-white);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 60px rgba(31, 31, 31, 0.08);
+            display: grid;
+            gap: 1.2rem;
         }
 
-        .wine-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(114, 47, 55, 0.2);
+        .about-card h3 {
+            margin: 0;
+            font-size: 1.9rem;
+            color: var(--color-dark);
         }
 
-        .wine-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
+        .about-card p {
+            margin: 0;
         }
 
-        .wine-info {
-            padding: 1.5rem;
+        .testimonials {
+            display: grid;
+            gap: 1.5rem;
         }
 
-        .wine-name {
-            font-size: 1.3rem;
-            color: var(--wine-red);
-            margin-bottom: 0.5rem;
+        .testimonial {
+            background: var(--color-white);
+            border-radius: 18px;
+            padding: 1.75rem;
+            box-shadow: 0 12px 40px rgba(31, 31, 31, 0.07);
         }
 
-        .wine-region {
-            color: var(--terracotta);
-            font-weight: 500;
+        .testimonial p {
             margin-bottom: 1rem;
+            font-style: italic;
         }
 
-        .wine-description {
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .wine-price {
-            font-size: 1.2rem;
+        .testimonial span {
             font-weight: 600;
-            color: var(--wine-red);
-            margin-bottom: 1rem;
+            color: var(--color-dark);
         }
 
-        .wine-actions {
-            display: flex;
+        .service-features {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .feature-card {
+            background: var(--color-white);
+            padding: 1.9rem;
+            border-radius: 18px;
+            box-shadow: 0 18px 50px rgba(31, 31, 31, 0.08);
+            display: grid;
+            gap: 0.9rem;
+        }
+
+        .feature-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            background: rgba(201, 166, 70, 0.12);
+            display: grid;
+            place-items: center;
+            font-size: 1.4rem;
+            color: var(--color-accent);
+        }
+
+        .event-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .event-card {
+            padding: 1.5rem;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.96), rgba(255,255,255,0.75));
+            border: 1px solid rgba(31,31,31,0.05);
+            box-shadow: 0 15px 40px rgba(31, 31, 31, 0.05);
+        }
+
+        .pricing {
+            background: var(--color-dark);
+            color: var(--color-white);
+        }
+
+        .pricing-content {
+            max-width: 1040px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .price-card {
+            background: rgba(255,255,255,0.04);
+            padding: 2.5rem;
+            border-radius: 24px;
+            display: grid;
             gap: 1rem;
         }
 
-        .btn-small {
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
+        .price-card h3 {
+            font-size: 2.4rem;
+            margin: 0;
+            font-family: 'Playfair Display', serif;
         }
 
-        /* CTA Sections */
-        .cta-section {
-            background: linear-gradient(135deg, var(--wine-red), var(--terracotta));
-            color: white;
-            text-align: center;
-        }
-
-        .cta-grid {
+        .price-card ul {
+            list-style: none;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            gap: 0.6rem;
+            margin: 0;
+            padding: 0;
         }
 
-        .cta-card {
-            background: rgba(255,255,255,0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s ease;
-        }
-
-        .cta-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .cta-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .cta-title {
-            color: white;
-            margin-bottom: 1rem;
-        }
-
-        .cta-description {
-            margin-bottom: 1.5rem;
-            opacity: 0.9;
-        }
-
-        /* About Preview */
-        .about-preview {
-            background: white;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-image {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 20px;
-        }
-
-        .about-text h3 {
-            color: var(--wine-red);
-            margin-bottom: 1.5rem;
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-            line-height: 1.7;
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--charcoal);
-            color: white;
-            padding: 3rem 0 1rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h4 {
-            color: var(--golden-amber);
-            margin-bottom: 1rem;
-        }
-
-        .footer-section p, .footer-section a {
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            line-height: 1.8;
-        }
-
-        .footer-section a:hover {
-            color: var(--golden-amber);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.6);
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
+        .price-card li {
             display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
         }
 
-        .modal-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 20px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
+        .price-card li::before {
+            content: '\2713';
+            font-weight: 600;
+            color: var(--color-accent);
         }
 
-        .modal-header {
+        .add-ons {
+            background: rgba(255,255,255,0.07);
+            padding: 1.5rem;
+            border-radius: 18px;
+        }
+
+        .add-ons h4 {
+            margin-top: 0;
+        }
+
+        .cta-strip {
+            background: linear-gradient(135deg, rgba(201, 166, 70, 0.95), rgba(155, 125, 44, 0.92));
+            color: var(--color-white);
+            padding: 3.5rem 2rem;
+        }
+
+        .cta-strip .inner {
+            max-width: 980px;
+            margin: 0 auto;
             display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
         }
 
-        .modal-close {
+        .cta-strip h2 {
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+        }
+
+        .contact {
+            background: var(--color-white);
+        }
+
+        .contact-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        form {
+            display: grid;
+            gap: 1rem;
+        }
+
+        label {
+            font-weight: 500;
+            color: var(--color-dark);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(31,31,31,0.12);
+            background: rgba(247, 246, 242, 0.6);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(201, 166, 70, 0.18);
+        }
+
+        textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        .contact-details {
+            display: grid;
+            gap: 1.4rem;
+        }
+
+        .contact-details a {
+            color: var(--color-dark);
+            font-weight: 600;
+        }
+
+        .map-embed iframe {
+            width: 100%;
+            border: 0;
+            border-radius: 18px;
+            height: 260px;
+        }
+
+        footer {
+            background: #121212;
+            color: rgba(255,255,255,0.7);
+            padding: 2rem;
+        }
+
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.25rem;
+        }
+
+        .social-links a {
+            color: rgba(255,255,255,0.82);
+            transition: color 0.2s ease;
+        }
+
+        .social-links a:hover,
+        .social-links a:focus {
+            color: var(--color-accent);
+        }
+
+        .mobile-toggle {
+            display: none;
             background: none;
             border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--warm-gray);
+            font-size: 1.8rem;
+            color: var(--color-dark);
         }
 
-        /* Form Styles */
-        .form-group {
-            margin-bottom: 1.5rem;
+        @media (max-width: 900px) {
+            nav ul {
+                position: fixed;
+                top: 70px;
+                right: 24px;
+                background: var(--color-white);
+                border-radius: 18px;
+                box-shadow: 0 22px 55px rgba(31,31,31,0.15);
+                padding: 1.5rem;
+                display: grid;
+                gap: 1.2rem;
+                transform: translateY(-20px);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.25s ease, transform 0.25s ease;
+                min-width: 200px;
+            }
+
+            nav ul.open {
+                opacity: 1;
+                transform: translateY(0);
+                pointer-events: auto;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
         }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--charcoal);
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--wine-red);
-        }
-
-        .form-group input.error,
-        .form-group textarea.error,
-        .form-group select.error {
-            border-color: #e74c3c;
-        }
-
-        .error-message {
-            color: #e74c3c;
-            font-size: 0.9rem;
-            margin-top: 0.25rem;
-        }
-
-        /* Notifications */
-        .notification {
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            padding: 1rem 1.5rem;
-            border-radius: 10px;
-            color: white;
-            font-weight: 500;
-            z-index: 3000;
-        }
-
-        .notification.success {
-            background: #27ae60;
-        }
-
-        .notification.error {
-            background: #e74c3c;
-        }
-
-        .notification.info {
-            background: var(--wine-red);
-        }
-
-        /* Responsive Design */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+            section {
+                padding: 4rem 1.5rem;
             }
 
-            .mobile-menu-btn {
-                display: flex;
-            }
-
-            .hero-title {
-                font-size: 2.5rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1.1rem;
-            }
-
-            .hero-cta {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            h1 { font-size: 2.5rem; }
-            h2 { font-size: 2rem; }
-            h3 { font-size: 1.5rem; }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 1rem;
-            }
-
-            .section {
-                padding: 3rem 0;
-            }
-
-            .wine-grid {
+            .about-grid {
                 grid-template-columns: 1fr;
             }
 
-            .cta-grid {
+            .pricing-content {
                 grid-template-columns: 1fr;
+            }
+
+            .cta-strip .inner {
+                text-align: center;
+                justify-content: center;
             }
         }
 
-        /* Animation Classes */
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-        }
+        @media (max-width: 520px) {
+            .nav-wrapper {
+                padding: 0.75rem 1.25rem;
+            }
 
-        /* Character animation for hero title */
-        .hero-title .char {
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(100px);
+            .hero {
+                padding: 6rem 1.5rem 3.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">Sakartvelo Skoniai</a>
-            <ul class="nav-links">
-                <li><a href="index.html">Pradinis</a></li>
-                <li><a href="apie-mus.html">Apie Mus</a></li>
-                <li><a href="parduotuve.html">Parduotuvė</a></li>
-                <li><a href="meniu.html">Meniu</a></li>
-                <li><a href="degustacija.html">Degustacija</a></li>
-                <li><a href="kontaktai.html">Kontaktai</a></li>
-            </ul>
-            <div class="mobile-menu-btn">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+    <header>
+        <div class="nav-wrapper">
+            <a class="brand" href="#hero" aria-label="Edvinfoto home">
+                <span class="brand-mark">E</span>
+                <span>Edvinfoto.lt</span>
+            </a>
+            <button class="mobile-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+            <nav>
+                <ul id="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#service">Service</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <a class="cta-button" href="#contact">Book Now</a>
         </div>
-    </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-background"></div>
-        <div class="hero-content">
-            <h1 class="hero-title" data-splitting>Sakartvelo Skoniai</h1>
-            <p class="hero-subtitle">Atraskite 8000 metų Gruzijos vyno tradiciją. Autentiški vynai, tradiciniai patiekalai ir nepamirštamos degustacijos Vilniuje.</p>
-            <div class="hero-cta">
-                <a href="parduotuve.html" class="btn btn-primary">Aplankyti Parduotuvę</a>
-                <a href="degustacija.html" class="btn btn-secondary">Užsisakyti Degustaciją</a>
+    <main>
+        <section class="hero" id="hero">
+            <div class="hero-content">
+                <h1>Capture Unforgettable Moments with a Professional Photobooth Experience</h1>
+                <p>Give your guests a stylish, guided photoshoot that feels like a photobooth—only better. Edvinfoto brings lighting, direction, and creativity to every event for a flat €200 per hour.</p>
+                <div class="hero-cta">
+                    <a class="cta-button" href="#contact">Book Now for €200</a>
+                    <a class="cta-button secondary" href="#pricing">View Details</a>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Featured Wines Section -->
-    <section class="section wine-showcase">
-        <div class="container">
-            <div class="section-header animate-on-scroll">
-                <h2 class="section-title">Išskirtiniai Vynai</h2>
-                <p class="section-subtitle">Pažinkite autentiškus Gruzijos vynus, pagamintus pagal senovines tradicijas</p>
+        <section id="about">
+            <div class="section-heading">
+                <h2>Why Choose Edvinfoto?</h2>
+                <p>Traditional photobooths are fun, but they often fall short on quality. Edvinfoto merges the spontaneity of a booth with the artistry of a photographer to create images you will treasure.</p>
             </div>
-            
-            <div class="wine-grid">
-                <div class="wine-card animate-on-scroll" data-category="red">
-                    <img src="resources/amber-wine-glass.jpg" alt="Saperavi Premium" class="wine-image">
-                    <div class="wine-info">
-                        <h3 class="wine-name">Saperavi Premium</h3>
-                        <p class="wine-region">Kakheti regionas</p>
-                        <p class="wine-description">Giliausios spalvos ir intensyvaus skonio raudonasis vynas, brandintas ąžuolinėse statinėse pagal tradicinius metodus.</p>
-                        <p class="wine-price">€18.99</p>
-                        <div class="wine-actions">
-                            <button class="btn btn-primary btn-small" data-modal="wine-modal-1">Plačiau</button>
-                            <button class="btn btn-tertiary btn-small" onclick="showNotification('Užklausa išsiųsta!', 'success')">Užsakyti</button>
+            <div class="about-grid">
+                <div class="about-card">
+                    <h3>A Personal Creative Director</h3>
+                    <p>Founder Edvinas works with every group and individual to craft poses, expressions, and lighting that highlight your personality. Every frame is thoughtfully composed and professionally edited.</p>
+                    <div class="testimonials">
+                        <div class="testimonial">
+                            <p>“Our wedding guests couldn’t stop raving about how fun and effortless the photoshoot felt. The gallery looked like a magazine spread.”</p>
+                            <span>— Greta & Mantas</span>
+                        </div>
+                        <div class="testimonial">
+                            <p>“We booked Edvinfoto for a corporate celebration and the images became the highlight of our internal campaign.”</p>
+                            <span>— Rūta, Marketing Lead</span>
                         </div>
                     </div>
                 </div>
+                <div class="about-card">
+                    <h3>Professional Quality, Photobooth Energy</h3>
+                    <p>From colour-calibrated lighting to curated props and backdrops, every detail is designed to elevate the experience. Expect laughter, guidance, and a gallery of high-resolution portraits delivered within 48 hours.</p>
+                    <p>Serving Vilnius and the surrounding region, Edvinfoto is perfect for couples, families, creative brands, and anyone who wants to celebrate in style.</p>
+                    <a class="cta-button secondary" href="#service">Discover the Service</a>
+                </div>
+            </div>
+        </section>
 
-                <div class="wine-card animate-on-scroll" data-category="amber">
-                    <img src="resources/amber-wine-glass.jpg" alt="Rkatsiteli Qvevri" class="wine-image">
-                    <div class="wine-info">
-                        <h3 class="wine-name">Rkatsiteli Qvevri</h3>
-                        <p class="wine-region">Kakheti regionas</p>
-                        <p class="wine-description">Tradiciniu metodu Qvevri inde brandintas gintarinis vynas su išskirtiniu skoniu ir aromatu.</p>
-                        <p class="wine-price">€19.99</p>
-                        <div class="wine-actions">
-                            <button class="btn btn-primary btn-small" data-modal="wine-modal-2">Plačiau</button>
-                            <button class="btn btn-tertiary btn-small" onclick="showNotification('Užklausa išsiųsta!', 'success')">Užsakyti</button>
+        <section id="service">
+            <div class="section-heading">
+                <h2>Everything Included in Your €200 Session</h2>
+                <p>One hour is all it takes to create a gallery filled with playful, editorial-style images guided by a professional photographer.</p>
+            </div>
+            <div class="service-features">
+                <div class="feature-card">
+                    <div class="feature-icon">📸</div>
+                    <h3>Guided Portrait Session</h3>
+                    <p>Enjoy a relaxed, photobooth-inspired shoot with professional lighting, direction, and posing for individuals, couples, or groups.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">♾️</div>
+                    <h3>Unlimited Photos</h3>
+                    <p>Shoot as much as you like within the hour. Every standout moment is captured and shared in a curated digital gallery.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Instant Sharing</h3>
+                    <p>Receive social-ready highlights during the event along with a link to download high-resolution files within 48 hours.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Custom Styling</h3>
+                    <p>Personalise the backdrop, lighting mood, and props to match your event theme. We help bring your creative ideas to life.</p>
+                </div>
+            </div>
+            <div class="section-heading" style="margin-top: 4rem;">
+                <h2>Perfect for Any Celebration</h2>
+                <p>From intimate gatherings to brand activations, Edvinfoto delivers photobooth energy with magazine-quality imagery.</p>
+            </div>
+            <div class="event-grid">
+                <div class="event-card">
+                    <h3>Weddings &amp; Engagements</h3>
+                    <p>Create a glamorous portrait lounge that your guests will keep talking about long after the cake is gone.</p>
+                </div>
+                <div class="event-card">
+                    <h3>Birthdays &amp; Anniversaries</h3>
+                    <p>Celebrate milestones with candid, creative images that capture real emotions and unique personalities.</p>
+                </div>
+                <div class="event-card">
+                    <h3>Corporate Events</h3>
+                    <p>Boost your brand activations, launches, or team nights with polished visuals perfect for campaigns and social media.</p>
+                </div>
+                <div class="event-card">
+                    <h3>Creative Projects</h3>
+                    <p>Need editorial portraits for a magazine, theatre production, or influencer collaboration? Let’s shape the narrative together.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pricing" id="pricing">
+            <div class="section-heading">
+                <h2>Transparent Pricing</h2>
+                <p>Everything you need for an unforgettable photography experience is included in one straightforward package.</p>
+            </div>
+            <div class="pricing-content">
+                <div class="price-card">
+                    <h3>€200<span style="font-size:1rem;font-weight:500;"> / hour</span></h3>
+                    <p>Book one hour for most events, or request a custom quote for extended celebrations.</p>
+                    <ul>
+                        <li>Professional photographer on-site</li>
+                        <li>Unlimited guided poses &amp; concepts</li>
+                        <li>Studio-quality lighting setup</li>
+                        <li>High-resolution digital delivery within 48 hours</li>
+                        <li>Private online gallery with easy downloads</li>
+                    </ul>
+                    <a class="cta-button" href="#contact">Reserve Your Date</a>
+                </div>
+                <div class="add-ons">
+                    <h4>Optional Enhancements</h4>
+                    <p>Add special touches to tailor the experience to your event.</p>
+                    <ul>
+                        <li><strong>Instant prints:</strong> +€60 per 100 prints</li>
+                        <li><strong>Custom backdrop design:</strong> from €80</li>
+                        <li><strong>Prop styling &amp; sourcing:</strong> from €40</li>
+                        <li><strong>Extended coverage:</strong> €150 per additional hour</li>
+                        <li><strong>Travel outside Vilnius region:</strong> custom quote</li>
+                    </ul>
+                    <p>Contact us to design a package that fits your event.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-strip">
+            <div class="inner">
+                <h2>Ready to Elevate Your Event Imagery?</h2>
+                <a class="cta-button" href="#contact">Book Your Session</a>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="section-heading">
+                <h2>Let’s Talk About Your Event</h2>
+                <p>Fill in the form and we’ll confirm availability within 24 hours. Prefer a call? Reach us directly.</p>
+            </div>
+            <div class="contact-grid">
+                <form action="https://formspree.io/f/your-form-id" method="POST">
+                    <label for="name">Name *</label>
+                    <input id="name" name="name" type="text" placeholder="Your name" required>
+
+                    <label for="email">Email *</label>
+                    <input id="email" name="email" type="email" placeholder="you@example.com" required>
+
+                    <label for="message">Tell us about your event *</label>
+                    <textarea id="message" name="message" placeholder="Date, location, occasion, number of guests..." required></textarea>
+
+                    <button class="cta-button" type="submit">Submit</button>
+                    <p style="font-size:0.85rem;color:var(--color-mid);">By submitting you agree to our <a href="#privacy" style="color:var(--color-accent);">privacy policy</a>. Your details are kept confidential.</p>
+                </form>
+                <div class="contact-details">
+                    <div>
+                        <h3>Contact Information</h3>
+                        <p>Phone: <a href="tel:+37060000000">+370 600 00000</a></p>
+                        <p>Email: <a href="mailto:hello@edvinfoto.lt">hello@edvinfoto.lt</a></p>
+                        <p>Service area: Vilnius &amp; Lithuania (on request)</p>
+                    </div>
+                    <div>
+                        <h3>Stay Connected</h3>
+                        <p>Follow the latest shoots, behind-the-scenes stories, and creative concepts.</p>
+                        <div class="social-links">
+                            <a href="https://www.instagram.com" target="_blank" rel="noopener">Instagram</a>
+                            <a href="https://www.facebook.com" target="_blank" rel="noopener">Facebook</a>
+                            <a href="https://www.tiktok.com" target="_blank" rel="noopener">TikTok</a>
                         </div>
                     </div>
-                </div>
-
-                <div class="wine-card animate-on-scroll" data-category="white">
-                    <img src="resources/amber-wine-glass.jpg" alt="Tsinandali" class="wine-image">
-                    <div class="wine-info">
-                        <h3 class="wine-name">Tsinandali</h3>
-                        <p class="wine-region">Kakheti regionas</p>
-                        <p class="wine-description">Elegantiškas baltasis vynas iš Rkatsiteli ir Mtsvane vynuogių mišinio, puikiai tinkantis prie lengvų patiekalų.</p>
-                        <p class="wine-price">€15.99</p>
-                        <div class="wine-actions">
-                            <button class="btn btn-primary btn-small" data-modal="wine-modal-3">Plačiau</button>
-                            <button class="btn btn-tertiary btn-small" onclick="showNotification('Užklausa išsiųsta!', 'success')">Užsakyti</button>
-                        </div>
+                    <div class="map-embed" aria-label="Service area map">
+                        <iframe title="Edvinfoto Vilnius" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23070.48514992038!2d25.25259285!3d54.68704545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dd942d77bd104f%3A0x400d18c6661e930!2sVilnius%2C%20Lithuania!5e0!3m2!1sen!2slt!4v1700000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- CTA Section -->
-    <section class="section cta-section">
-        <div class="container">
-            <div class="section-header animate-on-scroll">
-                <h2 class="section-title" style="color: white;">Patirkite Gruzijos Skonį</h2>
-                <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">Pasinerkite į autentišką Gruzijos kultūrą per vyną ir maistą</p>
+        <section id="privacy" style="background: var(--color-light); padding: 3rem 2rem;">
+            <div class="section-heading" style="margin-bottom: 1.5rem;">
+                <h2 style="font-size: 2rem;">Privacy First</h2>
+                <p style="max-width: 720px; margin: 0 auto;">We use your contact details solely to respond to your enquiry and arrange your booking. Data is stored securely, never shared with third parties, and removed on request. Event photos are published only with your written consent.</p>
             </div>
-            
-            <div class="cta-grid">
-                <div class="cta-card animate-on-scroll">
-                    <div class="cta-icon">🍷</div>
-                    <h3 class="cta-title">Vyno Degustacijos</h3>
-                    <p class="cta-description">Pažinkite Gruzijos vyno istoriją ir tradicijas per profesionalias degustacijas su užkandžiais.</p>
-                    <a href="degustacija.html" class="btn btn-secondary">Sužinoti Daugiau</a>
-                </div>
-                
-                <div class="cta-card animate-on-scroll">
-                    <div class="cta-icon">🍽️</div>
-                    <h3 class="cta-title">Tradiciniai Patiekalai</h3>
-                    <p class="cta-description">Paragaukite autentiškų gruziniškų patiekalų, pagamintų pagal senovinius receptus.</p>
-                    <a href="meniu.html" class="btn btn-secondary">Peržiūrėti Meniu</a>
-                </div>
-                
-                <div class="cta-card animate-on-scroll">
-                    <div class="cta-icon">🛒</div>
-                    <h3 class="cta-title">Vyno Parduotuvė</h3>
-                    <p class="cta-description">Įsigykite išskirtinių Gruzijos vynų iš kiekvienos šalies vyno regiono.</p>
-                    <a href="parduotuve.html" class="btn btn-secondary">Apsipirkti</a>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- About Preview -->
-    <section class="section about-preview">
-        <div class="container">
-            <div class="about-content animate-on-scroll">
-                <div>
-                    <img src="resources/qvevri-cellar.jpg" alt="Qvevri vyno rūsys" class="about-image">
-                </div>
-                <div class="about-text">
-                    <h3>8000 Metų Vyno Tradici</h3>
-                    <p>Gruzija - vyno lopšys, kur vyno gamyba gyvuoja jau 8000 metų. Mūsų šeimos verslas tęsia šią senovinę tradiciją, pristatydamas autentiškus Gruzijos vynus Lietuvos rinkoje.</p>
-                    <p>Mes bendradarbiaujame su mažais šeimos vyninėmis iš visų Gruzijos vyno regionų, kad galėtume pasiūlyti išskirtinius vynus, pagamintus pagal tradicinius Qvevri metodus.</p>
-                    <a href="apie-mus.html" class="btn btn-primary">Skaityti Daugiau</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Sakartvelo Skoniai, UAB</h4>
-                    <p>Savanorių pr. 6<br>
-                    LT-03116, Vilnius<br>
-                    Lietuva</p>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Kontaktai</h4>
-                    <p>Telefonas: <a href="tel:+37063924442">+370 639 24442</a><br>
-                    El. paštas: <a href="mailto:info@sakartveloskoniai.lt">info@sakartveloskoniai.lt</a></p>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Darbo Laikas</h4>
-                    <p>I-V: 10:00 - 20:00<br>
-                    VI: 10:00 - 22:00<br>
-                    VII: 12:00 - 18:00</p>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Sekite Mus</h4>
-                    <p>Socialiniuose tinkluose:<br>
-                    <a href="#">Facebook</a> | <a href="#">Instagram</a></p>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2024 Sakartvelo Skoniai, UAB. Visos teisės saugomos.</p>
+    <footer>
+        <div class="footer-inner">
+            <p>&copy; <span id="year"></span> Edvinfoto.lt. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#privacy">Privacy Policy</a>
+                <a href="mailto:hello@edvinfoto.lt">hello@edvinfoto.lt</a>
             </div>
         </div>
     </footer>
 
-    <!-- Wine Detail Modals -->
-    <div id="wine-modal-1" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Saperavi Premium</h3>
-                <button class="modal-close">&times;</button>
-            </div>
-            <img src="resources/amber-wine-glass.jpg" alt="Saperavi Premium" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
-            <p><strong>Regionas:</strong> Kakheti, Gruzija</p>
-            <p><strong>Tipas:</strong> Raudonas sausas</p>
-            <p><strong>Alkoholis:</strong> 14%</p>
-            <p><strong>Apibūdinimas:</strong> Giliausios spalvos ir intensyvaus skonio raudonasis vynas, pagamintas iš rankiniu būdu skintų Saperavi vynuogių. Brandintas prancūziško ąžuolo statinėse 18 mėnesių.</p>
-            <p><strong>Skonio natos:</strong> Juodieji serbentai, slyvos, prieskoniai, šokoladas</p>
-            <p><strong>Pateikimo temperatūra:</strong> 16-18°C</p>
-            <p><strong>Puikiai tinka prie:</strong> Mėsos patiekalų, brandintų sūrių, kepsnių</p>
-            <div style="margin-top: 1.5rem;">
-                <button class="btn btn-primary" onclick="showNotification('Užklausa išsiųsta!', 'success'); closeModal();">Užsakyti €18.99</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="wine-modal-2" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Rkatsiteli Qvevri</h3>
-                <button class="modal-close">&times;</button>
-            </div>
-            <img src="resources/amber-wine-glass.jpg" alt="Rkatsiteli Qvevri" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
-            <p><strong>Regionas:</strong> Kakheti, Gruzija</p>
-            <p><strong>Tipas:</strong> Gintarinis sausas (Qvevri metodas)</p>
-            <p><strong>Alkoholis:</strong> 13%</p>
-            <p><strong>Apibūdinimas:</strong> Unikalus gintarinis vynas, pagamintas pagal 8000 metų senumo tradiciją Qvevri inde. Vynuogės fermentuojamos su žievelėmis 6 mėnesius.</p>
-            <p><strong>Skonio natos:</strong> Medus, džiovinti vaisiai, riešutai, prieskoniai</p>
-            <p><strong>Pateikimo temperatūra:</strong> 12-14°C</p>
-            <p><strong>Puikiai tinka prie:</strong> Aštrių patiekalų, brandintų sūrių, tradicinės gruziniškos virtuvės</p>
-            <div style="margin-top: 1.5rem;">
-                <button class="btn btn-primary" onclick="showNotification('Užklausa išsiųsta!', 'success'); closeModal();">Užsakyti €19.99</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="wine-modal-3" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Tsinandali</h3>
-                <button class="modal-close">&times;</button>
-            </div>
-            <img src="resources/amber-wine-glass.jpg" alt="Tsinandali" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
-            <p><strong>Regionas:</strong> Kakheti, Gruzija</p>
-            <p><strong>Tipas:</strong> Baltas sausas</p>
-            <p><strong>Alkoholis:</strong> 12.5%</p>
-            <p><strong>Apibūdinimas:</strong> Elegantiškas baltasis vynas iš Rkatsiteli (85%) ir Mtsvane (15%) vynuogių mišinio. Brandintas nerūdijančio plieno talpose.</p>
-            <p><strong>Skonio natos:</strong> Žalios obuolys, kriaušė, citrusiniai vaisiai, žiedai</p>
-            <p><strong>Pateikimo temperatūra:</strong> 8-10°C</p>
-            <p><strong>Puikiai tinka prie:</strong> Žuvies patiekalų, jūros gėrybių, lengvų užkandžių</p>
-            <div style="margin-top: 1.5rem;">
-                <button class="btn btn-primary" onclick="showNotification('Užklausa išsiųsta!', 'success'); closeModal();">Užsakyti €15.99</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="main.js"></script>
     <script>
-        // Character splitting for hero title animation
-        document.addEventListener('DOMContentLoaded', function() {
-            const heroTitle = document.querySelector('.hero-title');
-            if (heroTitle) {
-                const text = heroTitle.textContent;
-                heroTitle.innerHTML = text.split('').map(char => 
-                    `<span class="char">${char === ' ' ? '&nbsp;' : char}</span>`
-                ).join('');
-            }
+        const toggle = document.querySelector('.mobile-toggle');
+        const navLinks = document.getElementById('nav-links');
+        toggle.addEventListener('click', () => {
+            const open = navLinks.classList.toggle('open');
+            toggle.setAttribute('aria-expanded', open);
+            toggle.innerHTML = open ? '&times;' : '&#9776;';
         });
 
-        // Global notification function
-        function showNotification(message, type = 'info') {
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.textContent = message;
-            
-            document.body.appendChild(notification);
-            
-            if (typeof anime !== 'undefined') {
-                anime({
-                    targets: notification,
-                    translateX: [300, 0],
-                    opacity: [0, 1],
-                    easing: 'easeOutExpo',
-                    duration: 400
-                });
-                
-                setTimeout(() => {
-                    anime({
-                        targets: notification,
-                        translateX: [0, 300],
-                        opacity: [1, 0],
-                        easing: 'easeInExpo',
-                        duration: 400,
-                        complete: () => notification.remove()
-                    });
-                }, 4000);
-            } else {
-                setTimeout(() => notification.remove(), 4000);
-            }
-        }
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                toggle.setAttribute('aria-expanded', 'false');
+                toggle.innerHTML = '&#9776;';
+            });
+        });
 
-        // Global modal close function
-        function closeModal() {
-            const activeModal = document.querySelector('.modal.active');
-            if (activeModal) {
-                activeModal.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        }
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Google Analytics placeholder - replace 'G-XXXXXXXXXX' with your ID
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
     </script>
 </body>
 </html>
